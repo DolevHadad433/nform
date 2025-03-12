@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 const cache = new Map<string,  { packageJsonPath: string, packageJson: any, packageConfig: PackageConfig }>();
 
 export interface PackageConfig {
-  defaultCommitProejct: string;
+  defaultCommitProject: string;
   releasePackages: string[];
   angularPackageVersion: string;
 }

@@ -1,3 +1,5 @@
+
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
 mat-selection-list {
   max-height: 250px;
 }
@@ -35,7 +37,7 @@ mat-list.dynamic-array-container {
   border-left: 1px solid $list-container-border-color;
   overflow: auto;
   padding-bottom: $list-bottom-padding;
-
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   .mat-form-field-wrapper {
     margin-bottom: -1.25em;
     overflow-x: hidden;

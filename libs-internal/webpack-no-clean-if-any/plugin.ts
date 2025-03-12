@@ -10,7 +10,7 @@ export interface PebulaNoCleanIfAnyWebpackPluginCompilerHooks {
 
 export class PebulaNoCleanIfAnyWebpackPlugin {
   static getCompilationHooks(compiler: webpack.Compiler): PebulaNoCleanIfAnyWebpackPluginCompilerHooks {
-    if (!(compiler instanceof webpack.Compiler)) {
+    if (!compiler || typeof compiler.hooks !== 'object') {
       throw new TypeError("The 'compiler' argument must be an instance of Compiler");
     }
     let hooks = compilerHooksMap.get(compiler);
@@ -37,7 +37,9 @@ export class PebulaNoCleanIfAnyWebpackPlugin {
     });
 
     compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      webpack.CleanPlugin.getCompilationHooks(compilation).keep.tap(pluginName, (asset) => PebulaNoCleanIfAnyWebpackPlugin.getCompilationHooks(compiler).keep.call(asset));
+      if (compiler.options.output?.clean) {
+        compiler.options.output.clean = false;
+      }
     });
   }
 }

@@ -1,7 +1,7 @@
 <div class="example-group-container" fxLayout="row" fxLayoutAlign="space-between start" #el>
   <ng-container *ngIf="menu$ | async as navEntry">
     <div *ngIf="navEntry.children"  fxFlex="0 0 260px" class="example-sticky-container">
-      <mat-nav-list>
+      <mat-nav-list style="padding: 16px" >
         <ng-container *ngFor="let entry of navEntry.children">
           <ng-container *ngTemplateOutlet="entry.children ? containerEntry : linkEntry; context: { $implicit: entry }"></ng-container>
         </ng-container>

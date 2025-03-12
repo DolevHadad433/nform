@@ -89,17 +89,17 @@ $pbl-shell-accent:  mat-palette($mat-light-green);
     .pbl-bg-color-#{$key} { background-color: $color !important; }
   }
 
-  .mat-display-4, #{$typography-selector} .mat-display-4,
-  .mat-display-3, #{$typography-selector} .mat-display-3,
-  .mat-display-2, #{$typography-selector} .mat-display-2,
-  .mat-display-1, #{$typography-selector} .mat-display-1
+  .mat-headline-5-1, #{$typography-selector} .mat-display-4,
+  .mat-headline-2, #{$typography-selector} .mat-display-3,
+  .mat-headline-3, #{$typography-selector} .mat-display-2,
+  .mat-headline-4, #{$typography-selector} .mat-display-1
   .mat-h1, .mat-headline, #{$typography-selector} h1,
-  .mat-h2, .mat-title, #{$typography-selector} h2  {
+  .mat-h2, .mat-headline-6, #{$typography-selector} h2  {
     color: mat-color($foreground, text-header);
   }
 
   .mat-body p,
-  .mat-body-1 p,
+  .mat-body-2 p,
   .mat-typography p,
   a, input, li, ol, p, ul {
     letter-spacing: .3px;

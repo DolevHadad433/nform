@@ -177,12 +177,12 @@ export class MaterialFormControlRenderer implements MaterialStoreInstance, NForm
     return false;
   }
 
-  matChipAdd(event: MatChipInputEvent, arr: any[]): void {
+  matChipAdd(event: MatChipInputEvent, arr: any[] = []): void {
     const input = event.input;
     const value = (event.value || '').trim();
 
     if (value) {
-      arr.push(value);
+      arr?.push(value);
     }
 
     // Reset the input value

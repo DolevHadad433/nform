@@ -8,17 +8,16 @@
 
 <ng-template #slider let-ctx let-showLabels="showLabels" let-self="self">
   <span *ngIf="showLabels">{{ctx.item.label}}</span>
-  <mat-slider [formControl]="ctx.fControl"
-              thumbLabel="true"
-              [tickInterval]="1"
-              [min]="ctx.item.data?.min" [max]="ctx.item.data?.max"></mat-slider>
+  <mat-slider thumbLabel="true" [min]="ctx.item.data?.min" [max]="ctx.item.data?.max">
+    <input [formControl]="ctx.fControl" matSliderThumb>
+  </mat-slider>
 </ng-template>
 
 <ng-template #radio let-ctx let-showLabels="showLabels" let-self="self">
   <span *ngIf="showLabels">{{ctx.item.label}}</span>
-  <mat-radio-group [class.vertical-mat-radio-group]="ctx.item.data?.vertical"
-                   [formControl]="ctx.fControl">
-    <mat-radio-button *ngFor="let sel of ctx.item.data.options" [value]="sel.value">{{sel.label || sel.value}}</mat-radio-button>
+  <mat-radio-group [class.vertical-mat-radio-group]="ctx.item.data?.vertical" [formControl]="ctx.fControl">
+    <mat-radio-button *ngFor="let sel of ctx.item.data.options" [value]="sel.value">{{sel.label ||
+      sel.value}}</mat-radio-button>
   </mat-radio-group>
 </ng-template>
 
@@ -28,21 +27,17 @@
      See https://github.com/angular/material2/issues/9884
      -->
   <mat-form-field>
-    <textarea matInput
-              [formControl]="ctx.fControl"
-              [placeholder]="showLabels && ctx.item.label"
-              cdkTextareaAutosize
-              [cdkAutosizeMinRows]="ctx.item.data?.autoSize ? ctx.item.data.minRows : 1"
-              [cdkAutosizeMaxRows]="ctx.item.data?.autoSize ? ctx.item.data.maxRows : 1"></textarea>
+    <textarea matInput [formControl]="ctx.fControl" [placeholder]="showLabels && ctx.item.label" cdkTextareaAutosize
+      [cdkAutosizeMinRows]="ctx.item.data?.autoSize ? ctx.item.data.minRows : 1"
+      [cdkAutosizeMaxRows]="ctx.item.data?.autoSize ? ctx.item.data.maxRows : 1"></textarea>
     <mat-error *ngIf="self.hasError('required', ctx)">Required</mat-error>
   </mat-form-field>
 </ng-template>
 
 <ng-template #select let-ctx let-showLabels="showLabels" let-self="self">
   <mat-form-field>
-    <mat-select [formControl]="ctx.fControl"
-                [placeholder]="showLabels && ctx.item.label"
-                [multiple]="ctx.item.data.multiple">
+    <mat-select [formControl]="ctx.fControl" [placeholder]="showLabels && ctx.item.label"
+      [multiple]="ctx.item.data.multiple">
       <mat-option *ngFor="let sel of ctx.item.data.options" [value]="sel.value">{{sel.label || sel.value}}</mat-option>
     </mat-select>
     <mat-error *ngIf="self.hasError('required', ctx)">Required</mat-error>
@@ -51,42 +46,36 @@
 
 <ng-template #chips let-ctx let-showLabels="showLabels" let-self="self">
   <mat-form-field>
-    <mat-chip-list #chipList>
-      <mat-chip *ngFor="let item of ctx.fControl.value" [selectable]="ctx.item.data.selectable"
-                [removable]="ctx.item.data.removable" (removed)="self.matChipRemove(item, ctx.fControl.value)">
+    <mat-chip-grid #chipList>
+      <mat-chip *ngFor="let item of ctx.fControl.value" [removable]="ctx.item.data.removable"
+        (removed)="self.matChipRemove(item, ctx.fControl.value)">
         {{ item }}
         <mat-icon matChipRemove *ngIf="ctx.item.data.removable">cancel</mat-icon>
       </mat-chip>
-      <input [placeholder]="showLabels && ctx.item.label"
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="ctx.item.data.separatorKeysCodes"
-             [matChipInputAddOnBlur]="ctx.item.data.addOnBlur"
-             (matChipInputTokenEnd)="self.matChipAdd($event, ctx.fControl.value)">
-    </mat-chip-list>
+      <input [placeholder]="showLabels && ctx.item.label" [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="ctx.item.data.separatorKeysCodes"
+        [matChipInputAddOnBlur]="ctx.item.data.addOnBlur"
+        (matChipInputTokenEnd)="self.matChipAdd($event, ctx.fControl.value)">
+    </mat-chip-grid>
   </mat-form-field>
 </ng-template>
 
 <ng-template #date let-ctx let-showLabels="showLabels" let-self="self">
   <mat-form-field>
-    <input matInput
-           [formControl]="ctx.fControl"
-           [placeholder]="showLabels && ctx.item.label"
-           [matDatepicker]="datePicker"
-           [min]="ctx.item.data?.min" [max]="ctx.item.data?.max"
-           [matDatepickerFilter]="ctx.item.data?.filter">
+    <input matInput [formControl]="ctx.fControl" [placeholder]="showLabels && ctx.item.label"
+      [matDatepicker]="datePicker" [min]="ctx.item.data?.min" [max]="ctx.item.data?.max"
+      [matDatepickerFilter]="ctx.item.data?.filter">
     <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-    <mat-datepicker #datePicker [startView]="ctx.item.data?.startView || 'month'" [startAt]="ctx.item.data?.startAt"></mat-datepicker>
+    <mat-datepicker #datePicker [startView]="ctx.item.data?.startView || 'month'"
+      [startAt]="ctx.item.data?.startAt"></mat-datepicker>
     <mat-error *ngIf="self.hasError('required', ctx)">Required</mat-error>
   </mat-form-field>
 </ng-template>
 
 <ng-template #input let-ctx let-showLabels="showLabels" let-self="self">
   <mat-form-field>
-    <input matInput
-           [type]="ctx.item.vType"
-           [formControl]="ctx.fControl"
-           [placeholder]="showLabels && ctx.item.label"
-           [min]="ctx.item.data?.min" [max]="ctx.item.data?.max">
+    <input matInput [type]="ctx.item.vType" [formControl]="ctx.fControl" [placeholder]="showLabels && ctx.item.label"
+      [min]="ctx.item.data?.min" [max]="ctx.item.data?.max">
     <mat-error *ngIf="self.hasError('required', ctx)">Required</mat-error>
   </mat-form-field>
 </ng-template>
@@ -100,10 +89,12 @@
   <div class="dynamic-array">
     <mat-list class="dynamic-array-container">
       <ng-container *ngIf="ctx.item.isPrimitive">
-        <mat-list-item *forFormArray="let c of ctx.fArray; index as i; nForm: ctx.nForm; fGroup: ctx.fGroup; item: ctx.item">
+        <mat-list-item
+          *forFormArray="let c of ctx.fArray; index as i; nForm: ctx.nForm; fGroup: ctx.fGroup; item: ctx.item">
           <div class="dynamic-list-item" [class.selected]="self.selectedItem === i">
             <div class="dynamic-list-item-control">
-              <ng-container *ngTemplateOutlet="getTemplate(c.item); context: { $implicit: c, showLabels: false, self: self }"></ng-container>
+              <ng-container
+                *ngTemplateOutlet="getTemplate(c.item); context: { $implicit: c, showLabels: false, self: self }"></ng-container>
             </div>
             <div class="dynamic-list-item-select">
               <mat-icon (click)="self.selectedItem = self.selectedItem === i ? undefined : i">check</mat-icon>
@@ -113,14 +104,13 @@
       </ng-container>
 
       <ng-container *ngIf="ctx.item.isChildForm && ctx.item.identity">
-        <mat-list-item *forFormArray="let c of ctx.fArray; index as i; nForm: ctx.nForm; fGroup: ctx.fGroup; item: ctx.item">
-          <div class="dynamic-list-item dynamic-list-item-ripple"
-               mat-ripple
-               [class.selected]="self.selectedItem === i"
-               (click)="self.selectedItem = self.selectedItem === i ? undefined : i">
+        <mat-list-item
+          *forFormArray="let c of ctx.fArray; index as i; nForm: ctx.nForm; fGroup: ctx.fGroup; item: ctx.item">
+          <div class="dynamic-list-item dynamic-list-item-ripple" mat-ripple [class.selected]="self.selectedItem === i"
+            (click)="self.selectedItem = self.selectedItem === i ? undefined : i">
             <div class="dynamic-list-item-control dynamic-child-form-control">
-              <mat-icon *ngIf="c.fControl.invalid"
-                        class="dynamic-child-form-error" [matTooltip]="'Invalid'">error_outline</mat-icon>
+              <mat-icon *ngIf="c.fControl.invalid" class="dynamic-child-form-error"
+                [matTooltip]="'Invalid'">error_outline</mat-icon>
               <span>{{c.fControl.get(ctx.item.identity)?.value}}</span>
             </div>
             <div class="dynamic-list-item-select">
@@ -132,10 +122,12 @@
     </mat-list>
 
     <div class="dynamic-array-actions">
-      <button *ngIf="ctx.fArray.length" mat-icon-button [disabled]="! (self.selectedItem > -1)" (click)="self.removeFromList()">
+      <button *ngIf="ctx.fArray.length" mat-icon-button [disabled]="! (self.selectedItem > -1)"
+        (click)="self.removeFromList()">
         <mat-icon>close</mat-icon>
       </button>
-      <button *ngIf="ctx.fArray.length && !ctx.item.isPrimitive" mat-icon-button [disabled]="! (self.selectedItem > -1)" (click)="self.editFromList()">
+      <button *ngIf="ctx.fArray.length && !ctx.item.isPrimitive" mat-icon-button [disabled]="! (self.selectedItem > -1)"
+        (click)="self.editFromList()">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button (click)="self.addToList()">
