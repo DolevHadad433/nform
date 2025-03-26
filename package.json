@@ -1,6 +1,6 @@
 {
   "name": "@pebula/nform",
-  "version": "15.0.5",
+  "version": "15.0.7",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -33,7 +33,7 @@
     "serve:ssr": "node dist/server",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "nx": "./node_modules/.bin/nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main"
+    "postinstall": "node ./decorate-angular-cli.js"
   },
   "private": false,
   "dependencies": {
