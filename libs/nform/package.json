@@ -5,7 +5,7 @@
   "peerDependencies": {
     "@angular/common": "^15.2.9",
     "@angular/core": "^15.2.9",
-    "@pebula/metap": "2.0.0"
+    "@pebula/metap": "^15.0.0"
   },
   "description": "Angular Forms",
   "repository": {

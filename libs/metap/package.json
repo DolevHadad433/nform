@@ -3,7 +3,7 @@
   "version": "15.0.7",
   "license": "MIT",
   "peerDependencies": {
-    "@pebula/utils": "2.0.0"
+    "@pebula/utils": "^15.0.0"
   },
   "description": "meta-programming tools",
   "repository": {
