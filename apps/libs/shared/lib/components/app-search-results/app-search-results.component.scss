@@ -8,13 +8,13 @@
   left: 0;
   right: 0;
   background-color: #444;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
   box-sizing: border-box;
 
   .visually-hidden {
-    position: absolute!important;
-    top: -9999px!important;
-    left: -9999px!important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
   }
 
   .search-area {
@@ -36,7 +36,7 @@
     font-weight: 400;
   }
 
- .search-area ul.priority-pages .search-result-item {
+  .search-area ul.priority-pages .search-result-item {
     font-weight: 700;
   }
 

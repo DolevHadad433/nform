@@ -10,32 +10,12 @@
   "prefix": "pbl",
   "targets": {
     "build": {
-      "executor": "ng-cli-packagr-tasks:build",
+      "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["dist/@pebula/utils"],
       "options": {
         "tsConfig": "libs/utils/tsconfig.lib.json",
         "project": "libs/utils/ng-package.json",
-        "tasks": {
-          "config": "tools/ng-packagr.transformers/utils.transformers.ts",
-          "tsConfig": "tools/tsconfig.json",
-          "data": {
-            "analyseSourcesWorkaround": {},
-            "copyFile": {
-              "assets": [
-                {
-                  "glob": "README.md",
-                  "input": "./libs/utils",
-                  "output": "dist/@pebula/utils"
-                },
-                {
-                  "glob": "LICENSE",
-                  "input": ".",
-                  "output": "dist/@pebula/utils"
-                }
-              ]
-            }
-          }
-        }
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       },
       "configurations": {
         "production": {
@@ -47,7 +27,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "coverage/libs/utils"
       ],

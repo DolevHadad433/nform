@@ -12,7 +12,6 @@ import { ControllingNFormExample } from './controlling-nform.component';
     PblNFormModule,
   ],
   exports: [ ControllingNFormExample ],
-  entryComponents: [ ControllingNFormExample ],
 })
 @BindNgModule(ControllingNFormExample)
 export class ControllingNFormExampleModule { }

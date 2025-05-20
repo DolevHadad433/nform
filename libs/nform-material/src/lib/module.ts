@@ -23,7 +23,6 @@ import { GlobalMaterialFormControlDirective, MaterialTemplateStoreComponent, Mat
     MaterialFormControlRenderer,
     PblNFormModule
   ],
-  entryComponents: [MaterialTemplateStoreComponent, MaterialFormControlRenderer]
 })
 export class PblNformMaterialModule {
   constructor(injector: Injector) {

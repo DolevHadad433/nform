@@ -16,7 +16,6 @@ import { RenderStateExample } from './render-state.component';
     MatProgressSpinnerModule,
   ],
   exports: [ RenderStateExample ],
-  entryComponents: [ RenderStateExample ],
   providers: [
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],

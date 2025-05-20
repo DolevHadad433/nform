@@ -15,56 +15,12 @@
   },
   "targets": {
     "build": {
-      "executor": "ng-cli-packagr-tasks:build",
+      "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["dist/@pebula/nform"],
       "options": {
         "tsConfig": "libs/nform/tsconfig.lib.json",
         "project": "libs/nform/ng-package.json",
-        "tasks": {
-          "config": "tools/ng-packagr.transformers/nform.transformers.ts",
-          "tsConfig": "tools/tsconfig.json",
-          "data": {
-            "analyseSourcesWorkaround": {},
-            "copyFile": {
-              "assets": [
-                {
-                  "glob": "README.md",
-                  "input": ".",
-                  "output": "dist/@pebula/nform"
-                },
-                {
-                  "glob": "LICENSE",
-                  "input": ".",
-                  "output": "dist/@pebula/nform"
-                },
-                {
-                  "glob": "*.scss",
-                  "input": "libs/nform",
-                  "output": "dist/@pebula/nform"
-                },
-                {
-                  "glob": "**/*.scss",
-                  "input": "libs/nform/theming",
-                  "output": "dist/@pebula/nform/theming"
-                },
-                {
-                  "glob": "*/theming/**/*.scss",
-                  "input": "libs/nform",
-                  "output": "dist/@pebula/nform"
-                }
-              ]
-            },
-            "sassCompile": {
-              "entries": [
-                {
-                  "glob": "*.scss",
-                  "input": "libs/nform/theming/prebuilt",
-                  "output": "dist/@pebula/nform/themes"
-                }
-              ]
-            }
-          }
-        }
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       },
       "configurations": {
         "production": {
@@ -76,7 +32,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "coverage/libs/nform"
       ],

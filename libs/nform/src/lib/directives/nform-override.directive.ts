@@ -27,8 +27,8 @@ export interface NFormOverrideContext {
   exportAs: 'nFormOverride'
 })
 export class NFormOverrideDirective extends ControlSelectorBase {
-  @Input('nFormOverride') controlName: string | string[];
-  @Input('nFormOverrideVType') vType: keyof FormElementType | Array<keyof FormElementType>;
+  @Input('nFormOverride') controlName: string | string[] = null!;
+  @Input('nFormOverrideVType') vType: keyof FormElementType | Array<keyof FormElementType> = null!;
 
   constructor(public template: TemplateRef<NFormOverrideContext>) {
     // tslint:disable-line

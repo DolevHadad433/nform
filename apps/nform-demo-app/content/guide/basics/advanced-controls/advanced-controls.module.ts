@@ -12,7 +12,6 @@ import { AdvancedControlsExample } from './advanced-controls.component';
     PblNFormModule,
   ],
   exports: [ AdvancedControlsExample ],
-  entryComponents: [ AdvancedControlsExample ],
 })
 @BindNgModule(AdvancedControlsExample)
 export class AdvancedControlsExampleModule { }

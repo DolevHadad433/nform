@@ -12,7 +12,6 @@ import { ChildFormsExample } from './child-forms.component';
     PblNFormModule,
   ],
   exports: [ ChildFormsExample ],
-  entryComponents: [ ChildFormsExample ],
 })
 @BindNgModule(ChildFormsExample)
 export class ChildFormsExampleModule { }

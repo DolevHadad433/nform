@@ -6,7 +6,7 @@
     </div>
     <div fxFlex="0 1 50%" class="dyn-form-element-container dyn-form-element-container-{{item.vType}}">
       <material-form-control-renderer *ngIf="!custom"
-                                      showLabels="false"
+                                      [showLabels]="false"
                                       [nFormCmp]="nFormCmp"
                                       [nForm]="nForm"
                                       [fArray]="fArray"

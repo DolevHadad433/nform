@@ -19,9 +19,9 @@ import { ControlSelectorBase, NFormControlOutlet } from './control-selector-base
 })
 export class NFormControlOutletDirective extends ControlSelectorBase implements OnChanges, OnDestroy, NFormControlOutlet {
 
-  @Input('nformControlOutlet') controlName: string | string[];
+  @Input('nformControlOutlet') controlName: string | string[] = null!;
   @Input('nformControlOutletNFormCmp') nFormCmp: import('../components/nform/nform.component').NFormComponent;
-  @Input('nformControlOutletVType') vType: keyof FormElementType | Array<keyof FormElementType>;
+  @Input('nformControlOutletVType') vType: keyof FormElementType | Array<keyof FormElementType> = null!;
 
   constructor(public readonly vcRef: ViewContainerRef, @Optional() public readonly tRef?: TemplateRef<NFormOverrideContext>) {
     super();

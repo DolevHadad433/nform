@@ -7,14 +7,13 @@ $typography-config: shell-typography-config();
 @include mat.all-component-typographies($typography-config);
 @include mat.all-legacy-component-typographies($typography-config);
 
-
 @include pbl-ngrid-typography($typography-config);
 
-// Include the default theme styles.
+/* Include the default theme styles. */
 @include angular-material-theme($pbl-shell-theme);
 @include pbl-shell-app-theme($pbl-shell-theme, $typography-config);
 
-// @include pbl-ngrid-theme($pbl-shell-theme);
+/* @include pbl-ngrid-theme($pbl-shell-theme); */
 @include pbl-ngrid-material-theme($pbl-shell-theme);
 
 $narrow-spacing: ( spacing: $pbl-spacing-theme-narrow );
@@ -22,8 +21,8 @@ pbl-ngrid.slim {
   @include pbl-ngrid-spacing(map-merge($pbl-shell-theme, $narrow-spacing));
 }
 
-@import './markdown'; // load markdown styles
-@import './prismjs'; // load prismJs styles
+@import './markdown'; /* load markdown styles */
+@import './prismjs'; /* load prismJs styles */
 @import './helpers';
 @import './toc';
 

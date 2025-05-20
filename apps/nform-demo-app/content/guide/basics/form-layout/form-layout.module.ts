@@ -18,7 +18,6 @@ import { FlexFormLayoutExample } from './flex-form-layout.component';
     PblNformMaterialModule,
   ],
   exports: [ VerticalFormLayoutExample, HorizontalFormLayoutExample, FlexFormLayoutExample ],
-  entryComponents: [ VerticalFormLayoutExample, HorizontalFormLayoutExample, FlexFormLayoutExample ],
 })
 @BindNgModule(VerticalFormLayoutExample, HorizontalFormLayoutExample, FlexFormLayoutExample)
 export class FormLayoutExampleModule { }

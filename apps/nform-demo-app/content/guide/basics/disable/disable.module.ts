@@ -23,7 +23,6 @@ import { DisableFormExample } from './disable-form.component';
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],
   exports: [ DisableExample, DisableFormExample ],
-  entryComponents: [ DisableExample, DisableFormExample ],
 })
 @BindNgModule(DisableExample, DisableFormExample)
 export class DisableExampleModule { }

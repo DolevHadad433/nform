@@ -14,7 +14,6 @@ import { FormLayoutPinningExample } from './form-layout-pinning.component';
     PblNformMaterialModule,
   ],
   exports: [ FormLayoutPinningExample ],
-  entryComponents: [ FormLayoutPinningExample ],
 })
 @BindNgModule(FormLayoutPinningExample)
 export class FormLayoutPinningExampleModule { }

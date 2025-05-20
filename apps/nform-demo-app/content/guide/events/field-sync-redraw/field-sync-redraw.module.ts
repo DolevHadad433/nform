@@ -22,7 +22,6 @@ import { FieldSyncRedrawExample } from './field-sync-redraw.component';
     MatProgressSpinnerModule,
   ],
   exports: [ FieldSyncRedrawExample ],
-  entryComponents: [ FieldSyncRedrawExample ],
   providers: [
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],

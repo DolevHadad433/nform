@@ -23,7 +23,6 @@ import { HideFilterControlsExample } from './hide-filter-controls.component';
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],
   exports: [ HideFilterControlsExample ],
-  entryComponents: [ HideFilterControlsExample ],
 })
 @BindNgModule(HideFilterControlsExample)
 export class HideFilterControlsExampleModule { }

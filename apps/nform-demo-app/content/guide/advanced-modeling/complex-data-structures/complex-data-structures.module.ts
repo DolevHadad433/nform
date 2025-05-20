@@ -12,7 +12,6 @@ import { ComplexDataStructuresExample } from './complex-data-structures.componen
     PblNFormModule,
   ],
   exports: [ ComplexDataStructuresExample ],
-  entryComponents: [ ComplexDataStructuresExample ],
 })
 @BindNgModule(ComplexDataStructuresExample)
 export class ComplexDataStructuresExampleModule { }

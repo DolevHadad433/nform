@@ -10,10 +10,9 @@
   "prefix": "pbl",
   "targets": {
     "build": {
-      "executor": "ngx-build-plus:build",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "plugin": "~apps/nform-demo-app/build",
         "outputPath": "dist/browser",
         "index": "apps/nform-demo-app/src/index.html",
         "main": "apps/nform-demo-app/src/main.ts",
@@ -73,10 +72,9 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "ngx-build-plus:dev-server",
+      "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "port": 4201,
-        "plugin": "~apps/nform-demo-app/build"
+        "port": 4201
       },
       "configurations": {
         "development": {
@@ -95,7 +93,7 @@
       "defaultConfiguration": "development"
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/nform-demo-app/**/*.ts",
@@ -104,7 +102,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/nform-demo-app/jest.config.ts",
         "passWithNoTests": true
@@ -114,9 +112,8 @@
       ]
     },
     "server": {
-      "executor": "./tools/ngx-build-plus.server:server",
+      "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "plugin": "~apps/nform-demo-app/build",
         "outputPath": "dist/server",
         "main": "apps/nform-demo-app/src/main.server.ts",
         "tsConfig": "apps/nform-demo-app/tsconfig.server.json"

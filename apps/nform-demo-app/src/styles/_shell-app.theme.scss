@@ -7,7 +7,7 @@ $pbl-shell-accent:  mat-palette($mat-light-green);
   $background-background: #F8F9FD;
 
   $pbl-default-light-theme-background: (
-    app-bar: #ffffff, // overwriting default color, when no primary/accent/warn are set.
+    app-bar: #ffffff, /* overwriting default color, when no primary/accent/warn are set. */
     background: $background-background,
   );
 

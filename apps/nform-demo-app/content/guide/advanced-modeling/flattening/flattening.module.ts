@@ -12,7 +12,6 @@ import { FlatteningExample } from './flattening.component';
     PblNFormModule,
   ],
   exports: [ FlatteningExample ],
-  entryComponents: [ FlatteningExample ],
 })
 @BindNgModule(FlatteningExample)
 export class FlatteningExampleModule { }

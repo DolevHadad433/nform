@@ -17,7 +17,6 @@ import { VirtualGroupsWizardExample } from './virtual-groups-wizard.component';
     MatTabsModule,
   ],
   exports: [ FormSplittingExample, VirtualGroupsExample, VirtualGroupsWizardExample ],
-  entryComponents: [ FormSplittingExample, VirtualGroupsExample, VirtualGroupsWizardExample ],
   providers: [
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],

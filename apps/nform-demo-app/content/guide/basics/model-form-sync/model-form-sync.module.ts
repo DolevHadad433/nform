@@ -12,7 +12,6 @@ import { ModelFormSyncExample } from './model-form-sync.component';
     PblNFormModule,
   ],
   exports: [ ModelFormSyncExample ],
-  entryComponents: [ ModelFormSyncExample ],
 })
 @BindNgModule(ModelFormSyncExample)
 export class ModelFormSyncExampleModule { }

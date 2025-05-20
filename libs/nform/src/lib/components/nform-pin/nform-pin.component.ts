@@ -11,7 +11,7 @@ import { NFormComponent } from '../nform/nform.component';
 })
 export class NFormPinComponent<T = any> extends ControlSelectorBase implements OnInit, NFormControlOutlet {
 
-  @Input() controlName: string | string[];
+  @Input() controlName: string | string[] = null!;
 
   constructor(public readonly vcRef: ViewContainerRef, private nFormCmp: NFormComponent<T>) {
     super();

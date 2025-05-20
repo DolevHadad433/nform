@@ -12,7 +12,6 @@ import { TheRendererExample } from './the-renderer.component';
     PblNFormModule,
   ],
   exports: [ TheRendererExample ],
-  entryComponents: [ TheRendererExample ],
 })
 @BindNgModule(TheRendererExample)
 export class TheRendererExampleModule { }

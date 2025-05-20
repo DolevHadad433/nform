@@ -12,7 +12,6 @@ import { ArraysExample } from './arrays.component';
     PblNFormModule,
   ],
   exports: [ ArraysExample ],
-  entryComponents: [ ArraysExample ],
 })
 @BindNgModule(ArraysExample)
 export class ArraysExampleModule { }

@@ -12,7 +12,6 @@ import { GuideIndexExample } from './guide-index.component';
     PblNFormModule,
   ],
   exports: [ GuideIndexExample ],
-  entryComponents: [ GuideIndexExample ],
 })
 @BindNgModule(GuideIndexExample)
 export class GuideIndexExampleModule { }

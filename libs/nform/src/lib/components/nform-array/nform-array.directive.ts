@@ -32,11 +32,11 @@ const forFormArrayContextKeys: Array<keyof ForFormArrayDirective> = [
 })
 export class NFormArrayDirective extends NFormArray {
   // tslint:disable
-  @Input('nFormArrayNFormCmp') nFormCmp: NFormComponent;
-  @Input('nFormArrayFArray') fArray: FormArray;
-  @Input('nFormArrayFGroup') fGroup: FormGroup;
-  @Input('nFormArrayItem') item: NFormRecordRef;
-  @Input('nFormArrayNForm') nForm: NForm<any>;
+  @Input('nFormArrayNFormCmp') nFormCmp: NFormComponent = null!;
+  @Input('nFormArrayFArray') fArray: FormArray = null!;
+  @Input('nFormArrayFGroup') fGroup: FormGroup = null!;
+  @Input('nFormArrayItem') item: NFormRecordRef = null!;
+  @Input('nFormArrayNForm') nForm: NForm<any> = null!;
   // tslint:enable
 
   vcRef: ViewContainerRef;

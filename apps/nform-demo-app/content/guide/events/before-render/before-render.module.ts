@@ -12,7 +12,6 @@ import { BeforeRenderExample } from './before-render.component';
     PblNFormModule,
   ],
   exports: [ BeforeRenderExample ],
-  entryComponents: [ BeforeRenderExample ],
   providers: [
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],

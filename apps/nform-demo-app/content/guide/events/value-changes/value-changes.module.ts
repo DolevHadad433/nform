@@ -12,7 +12,6 @@ import { ValueChangesExample } from './value-changes.component';
     PblNFormModule,
   ],
   exports: [ ValueChangesExample ],
-  entryComponents: [ ValueChangesExample ],
   providers: [
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],

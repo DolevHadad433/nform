@@ -12,7 +12,6 @@ import { ValidationExample } from './validation.component';
     PblNFormModule,
   ],
   exports: [ ValidationExample ],
-  entryComponents: [ ValidationExample ],
 })
 @BindNgModule(ValidationExample)
 export class ValidationExampleModule { }
