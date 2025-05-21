@@ -1,0 +1,64 @@
+{
+  "entries": {
+    "home": {
+      "title": "Home",
+      "path": "home",
+      "type": "singlePage",
+      "ordinal": 0
+    },
+    "getting-started": {
+      "title": "Getting Started",
+      "path": "getting-started",
+      "type": "singlePage",
+      "ordinal": 1
+    },
+    "guide": {
+      "title": "Guide",
+      "path": "guide",
+      "type": "index",
+      "ordinal": 2,
+      "children": [
+        {
+          "title": "Basics",
+          "path": "guide/basics",
+          "type": "index",
+          "ordinal": 0
+        },
+        {
+          "title": "Advanced Modeling",
+          "path": "guide/advanced-modeling",
+          "type": "index",
+          "ordinal": 1
+        },
+        {
+          "title": "Events",
+          "path": "guide/events",
+          "type": "index",
+          "ordinal": 2
+        }
+      ]
+    },
+    "quick-start": {
+      "title": "Quick Start",
+      "path": "quick-start",
+      "type": "singlePage",
+      "ordinal": 3
+    },
+    "advanced-usage": {
+      "title": "Advanced Usage",
+      "path": "advanced-usage",
+      "type": "singlePage",
+      "ordinal": 4
+    }
+  },
+  "entryData": {
+    "home": "md-content/home.json",
+    "getting-started": "md-content/getting-started.json",
+    "guide": "md-content/guide.json",
+    "quick-start": "md-content/quick-start.json",
+    "advanced-usage": "md-content/advanced-usage.json",
+    "guide/basics": "md-content/guide-basics.json",
+    "guide/advanced-modeling": "md-content/guide-advanced-modeling.json",
+    "guide/events": "md-content/guide-events.json"
+  }
+}

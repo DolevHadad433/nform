@@ -7,13 +7,17 @@ import { MarkdownPagesService } from './markdown-pages.service';
 export class MarkdownPagesMenuService {
 
   get ready(): Promise<MarkdownPagesMenuService> {
-    return this.mdPages.ready.then( () => {
-      const rootKeys = Object.keys(this.mdPages.markdownPages.entries);
-      for (const key of rootKeys) {
-        this.getMenuSync(key);
+    return this.mdPages.ready.then(() => {
+      if (this.mdPages.markdownPages && this.mdPages.markdownPages.entries) {
+        const rootKeys = Object.keys(this.mdPages.markdownPages.entries);
+        for (const key of rootKeys) {
+          this.getMenuSync(key);
+        }
+      } else {
+        console.warn('MarkdownPages or entries not available yet');
       }
       return this;
-     });
+    });
   }
 
   private _cache = new Map<string, NavEntry>();
@@ -27,8 +31,15 @@ export class MarkdownPagesMenuService {
     }
 
     return this.ready
-      .then( () => {
+      .then(() => {
         const result: PageAssetNavEntry[] = [];
+
+        if (!this.mdPages.markdownPages || !this.mdPages.markdownPages.entries) {
+          console.warn('MarkdownPages or entries not available');
+          this._ofTypeCache.set(type, result);
+          return result;
+        }
+
         for (const key of Object.keys(this.mdPages.markdownPages.entries)) {
           const entry = this.mdPages.markdownPages.entries[key];
           if (entry.type === type) {
@@ -39,7 +50,7 @@ export class MarkdownPagesMenuService {
 
         // Although the entries come sorted from the server, because it's an object and we use `Object.keys`
         // we need to re-sort it.
-        result.sort( (entry1, entry2) => {
+        result.sort((entry1, entry2) => {
           if (entry1.ordinal > entry2.ordinal) {
             return 1;
           } else if (entry2.ordinal > entry1.ordinal) {
@@ -54,16 +65,26 @@ export class MarkdownPagesMenuService {
 
   getMenu(entry: string): Promise<NavEntry> {
     return this.mdPages.ready
-      .then( () => this.getMenuSync(entry) );
+      .then(() => this.getMenuSync(entry));
   }
 
   getMenuSync(entry: string, throwOnMissing = true): NavEntry | undefined {
     if (!this.mdPages.markdownPages) {
-      throw new Error('Service is not ready.');
+      if (throwOnMissing) {
+        throw new Error('Service is not ready.');
+      }
+      return undefined;
     }
 
     if (this._cache.has(entry)) {
       return this._cache.get(entry);
+    }
+
+    if (!this.mdPages.markdownPages.entries) {
+      if (throwOnMissing) {
+        throw new Error('Markdown pages entries not available.');
+      }
+      return undefined;
     }
 
     const pageEntry = this.mdPages.markdownPages.entries[entry];
@@ -113,7 +134,7 @@ function processPageAssetNavEntry(entry: PageAssetNavEntry, meta: PageNavigation
   }
 
   if (entry.children) {
-    e.children = entry.children.map( child => processPageAssetNavEntry(child, meta, e));
+    e.children = entry.children.map(child => processPageAssetNavEntry(child, meta, e));
   }
 
   return e;

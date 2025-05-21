@@ -56,7 +56,6 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   const remarkSlug = require('remark-slug')
   const remarkAutolinkHeadings = require('@rigor789/remark-autolink-headings');
   const remarkAttr = require('remark-attr')
-  const ContentMappingFilesPlugin = require("../../tools/content-mapping-files-plugin");
   const customBlockquotesOptions = { mapping: {
     'i>': 'info',
     'I>': 'info icon',
@@ -69,7 +68,6 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   // Get the value from environment variable or use default
   const NFORM_CONTENT_MAPPING_FILE = process.env.NFORM_CONTENT_MAPPING_FILE || 'nform-content-mapping.json';
   webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
-  webpackConfig.plugins.push(new ContentMappingFilesPlugin());
   webpackConfig.plugins.push(new PebulaNoCleanIfAnyWebpackPlugin());
 
   webpackConfig.plugins.push(new MarkdownPagesWebpackPlugin({

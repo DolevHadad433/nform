@@ -11,9 +11,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/browser",
         "index": "apps/nform-demo-app/src/index.html",
@@ -21,8 +19,6 @@
         "polyfills": "apps/nform-demo-app/src/polyfills.ts",
         "tsConfig": "apps/nform-demo-app/tsconfig.app.json",
         "assets": [
-          "apps/nform-demo-app/src/nform-content-mapping.json",
-          "apps/nform-demo-app/src/md-content",
           "apps/nform-demo-app/src/favicon.ico",
           "apps/nform-demo-app/src/google1a0455c97ead32c8.html",
           "apps/nform-demo-app/src/assets",
@@ -161,8 +157,6 @@
         "ssrWebpackConfig": "apps/nform-demo-app/build/webpack.config.ssr.js",
         "ssrProccessingScript": "dist/server.js",
         "assets": [
-          "apps/nform-demo-app/src/nform-content-mapping.json",
-          "apps/nform-demo-app/src/md-content",
           {
             "glob": "index.html",
             "input": "dist/browser",

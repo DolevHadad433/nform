@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "type": "object",
+    "properties": {
+        "tsConfig": {
+            "type": "string",
+            "description": "TypeScript configuration file"
+        },
+        "project": {
+            "type": "string",
+            "description": "Path to the ng-package.json file"
+        },
+        "buildableProjectDepsInPackageJsonType": {
+            "type": "string",
+            "description": "Type of dependencies to include in package.json"
+        }
+    },
+    "required": [
+        "tsConfig",
+        "project"
+    ]
+}

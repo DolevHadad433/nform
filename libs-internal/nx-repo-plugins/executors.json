@@ -5,6 +5,11 @@
       "implementation": "./src/executors/gh-pages/executor",
       "schema": "./src/executors/gh-pages/schema.json",
       "description": "gh-pages executor"
+    },
+    "custom-build": {
+      "implementation": "./src/executors/custom-build/executor",
+      "schema": "./src/executors/custom-build/schema.json",
+      "description": "Custom build executor with webpack customization"
     }
   }
 }

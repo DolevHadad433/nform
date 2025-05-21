@@ -8793,6 +8793,11 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
+domino@^2.1.6:
+  version "2.1.6"
+  resolved "https://pkgs.dev.azure.com/sharegain/ShareGainProject/_packaging/sg-npm/npm/registry/domino/-/domino-2.1.6.tgz#fe4ace4310526e5e7b9d12c7de01b7f485a57ffe"
+  integrity sha1-/krOQxBSbl57nRLH3gG39IWlf/4=
+
 domutils@^3.0.1:
   version "3.2.2"
   resolved "https://pkgs.dev.azure.com/sharegain/ShareGainProject/_packaging/sg-npm/npm/registry/domutils/-/domutils-3.2.2.tgz#edbfe2b668b0c1d97c24baf0f1062b132221bc78"

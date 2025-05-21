@@ -16,7 +16,9 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": ["dist/@pebula/nform"],
+      "outputs": [
+        "dist/@pebula/nform"
+      ],
       "options": {
         "tsConfig": "libs/nform/tsconfig.lib.json",
         "project": "libs/nform/ng-package.json",
