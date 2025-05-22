@@ -1,5 +1,5 @@
 {
   "id": "getting-started",
   "title": "Getting Started",
-  "contents": "# Getting Started with NForm\n\nFollow these steps to get started with NForm in your Angular application."
+  "contents": "<div pbl-app-content-chunk=\"pbl-getting-started-app-content-chunk\"></div>\n<h1>Getting Started with NForm</h1>\n<p>Learn how to set up your environment and create your first form.</p>\n<br>\n<div pbl-example-view=\"pbl-getting-started-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
 }

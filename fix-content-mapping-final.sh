@@ -2,7 +2,8 @@
 # Final comprehensive fix for content mapping issues
 # This script handles all aspects of the nform-content-mapping.json 404 issue
 
-echo "Applying final comprehensive fix for content mapping..."
+echo "=========== FINAL CONTENT MAPPING FIX ==========="
+echo "Applying direct fix for content structure issues"
 
 # 1. Ensure the content files exist
 echo "Creating content mapping files..."

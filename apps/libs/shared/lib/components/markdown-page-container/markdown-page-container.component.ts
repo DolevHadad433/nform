@@ -15,6 +15,49 @@ declare const CDK_VERSION: string;
 declare const NFORM_VERSION: string;
 declare const BUILD_VERSION: string;
 
+// Function to get version constants from the generated file if global constants are not defined
+function getVersionConstants() {
+  try {
+    // Try to load from the generated constants file
+    // Using dynamic import with path relative to the build output
+    const constants = require('/dist/webpack-constants.json');
+    return {
+      angular: constants.ANGULAR_VERSION,
+      cdk: constants.CDK_VERSION,
+      nform: constants.NFORM_VERSION,
+      build: constants.BUILD_VERSION
+    };
+  } catch (err) {
+    // Log the error only in development
+    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+      console.warn('Could not load webpack constants file:', err.message);
+    }
+
+    // Fallback to package.json versions when possible, otherwise hardcoded values
+    try {
+      // This might not work in production builds
+      const pkgAngular = require('@angular/core/package.json');
+      const pkgCdk = require('@angular/cdk/package.json');
+      const pkgNform = require('@pebula/nform/package.json');
+
+      return {
+        angular: pkgAngular.version || '16.1.0',
+        cdk: pkgCdk.version || '16.1.0',
+        nform: pkgNform.version || '15.0.7',
+        build: 'dev'
+      };
+    } catch (pkgErr) {
+      // Final fallback to hardcoded values
+      return {
+        angular: '16.1.0',
+        cdk: '16.1.0',
+        nform: '15.0.7',
+        build: 'dev'
+      };
+    }
+  }
+}
+
 @Component({
   selector: 'pbl-markdown-page-container',
   templateUrl: './markdown-page-container.component.html',
@@ -29,11 +72,12 @@ export class MarkdownPageContainerComponent implements OnDestroy {
 
   menu$ = new Subject<any>();
 
-  // Using the typeof operator to check if constants are defined, otherwise use fallback values
-  ngVersion = typeof ANGULAR_VERSION !== 'undefined' ? ANGULAR_VERSION : '16.1.0';
-  cdkVersion = typeof CDK_VERSION !== 'undefined' ? CDK_VERSION : '16.1.0';
-  libVersion = typeof NFORM_VERSION !== 'undefined' ? NFORM_VERSION : '15.0.7';
-  buildVersion = typeof BUILD_VERSION !== 'undefined' ? BUILD_VERSION : 'dev';
+  // Try to use the webpack-defined constants, but fall back to loaded constants if not available
+  private constants = getVersionConstants();
+  ngVersion = typeof ANGULAR_VERSION !== 'undefined' ? ANGULAR_VERSION : this.constants.angular;
+  cdkVersion = typeof CDK_VERSION !== 'undefined' ? CDK_VERSION : this.constants.cdk;
+  libVersion = typeof NFORM_VERSION !== 'undefined' ? NFORM_VERSION : this.constants.nform;
+  buildVersion = typeof BUILD_VERSION !== 'undefined' ? BUILD_VERSION : this.constants.build;
 
   constructor(private mdPagesMenu: MarkdownPagesMenuService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 

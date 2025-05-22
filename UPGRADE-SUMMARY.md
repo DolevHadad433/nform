@@ -30,6 +30,28 @@ We've provided several scripts to automate different aspects of the upgrade:
 - All @nrwl/* imports and references changed to @nx/*
 - All package.json script references updated
 
+## Fixes for Angular 16 Compatibility
+
+### 1. Webpack Configuration
+
+- Updated webpack configuration to work with Angular 16
+- Fixed issues with content mapping files not being found
+- Added comprehensive documentation in `docs/WEBPACK_CONFIGURATION.md`
+
+### 2. Webpack Constants Fix
+
+The upgrade caused issues with global constants defined by webpack (`ANGULAR_VERSION`, `CDK_VERSION`, etc.) not being properly injected into the build. We implemented a comprehensive solution:
+
+- Created `WebpackConstantsPlugin` to properly define constants during build
+- Generated fallback JSON for constants when not defined at build time
+- Added defensive coding in components to handle missing constants
+- See `docs/WEBPACK_CONSTANTS_FIX.md` for details
+
+Scripts:
+- `fix-webpack-constants.sh` - Sets up the constants plugin and generates fallback
+- `build-with-constants.sh` - Ensures constants are properly defined during build
+- `test-webpack-constants.sh` - Tests if constants are properly defined
+
 ### Angular Material Changes
 
 - Angular Material 16 uses MDC-based components by default

@@ -35,6 +35,11 @@
             "glob": "**/*",
             "input": "dist/md-content",
             "output": "/md-content"
+          },
+          {
+            "glob": "**/*",
+            "input": "dist/md-content*",
+            "output": "/"
           }
         ],
         "styles": [

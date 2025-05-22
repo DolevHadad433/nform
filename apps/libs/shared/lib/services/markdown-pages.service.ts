@@ -12,10 +12,10 @@ export class MarkdownPagesService {
     if (!this.markdownPages) {
       if (!this.fetching) {
         this.fetching = this.contentMapping.getMapping
-          .then(({ markdownPages }) => this.httpClient.get<PageNavigationMetadata>(markdownPages).toPromise() )
-          .then( markdownPages => this.markdownPages = markdownPages );
+          .then(({ markdownPages }) => this.httpClient.get<PageNavigationMetadata>(markdownPages).toPromise())
+          .then(markdownPages => this.markdownPages = markdownPages);
       }
-      return this.fetching.then( () => this);
+      return this.fetching.then(() => this);
     } else {
       return Promise.resolve(this);
     }
@@ -33,11 +33,15 @@ export class MarkdownPagesService {
     }
 
     return this.ready
-      .then( () => {
+      .then(() => {
         const url = this.markdownPages.entryData[path];
         if (url) {
-          return this.httpClient.get<PageFileAsset>(url).toPromise()
-            .then( page => {
+          // Use transformPath to handle special paths
+          const transformedUrl = this.contentMapping.transformPath(url);
+          console.log(`[MarkdownPagesService] Loading page from: ${transformedUrl}`);
+
+          return this.httpClient.get<PageFileAsset>(transformedUrl).toPromise()
+            .then(page => {
               this._cache.set(path, page);
               return page;
             });

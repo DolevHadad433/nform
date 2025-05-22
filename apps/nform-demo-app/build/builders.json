@@ -1,0 +1,9 @@
+{
+    "builders": {
+        "custom-webpack": {
+            "implementation": "./custom-webpack-builder.js",
+            "schema": "../../../node_modules/@angular-devkit/build-angular/src/browser/schema.json",
+            "description": "Custom browser builder that adds content structure fix"
+        }
+    }
+}
