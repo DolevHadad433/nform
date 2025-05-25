@@ -49,11 +49,14 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
     console.log('Error setting Angular plugin options:', error.message);
   }
 
+
   const remarkSlug = require('remark-slug')
   const remarkAutolinkHeadings = require('@rigor789/remark-autolink-headings');
   const remarkAttr = require('remark-attr')
-  const ContentMappingFilesPlugin = require("../../tools/content-mapping-files-plugin");
-  const WebpackConstantsPlugin = require("../../tools/webpack-constants-plugin");
+
+  const ContentMappingFilesPlugin = require("../../../tools/content-mapping-files-plugin");
+  const WebpackConstantsPlugin = require("../../../tools/webpack-constants-plugin");
+
   const customBlockquotesOptions = {
     mapping: {
       'i>': 'info',
@@ -73,8 +76,11 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
 
   try {
     // Add plugins for content handling
+
     webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
+
     webpackConfig.plugins.push(new ContentMappingFilesPlugin());
+
     webpackConfig.plugins.push(new PebulaNoCleanIfAnyWebpackPlugin());
 
     webpackConfig.plugins.push(new MarkdownPagesWebpackPlugin({
@@ -91,6 +97,8 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       ],
     }));
 
+
+
     webpackConfig.plugins.push(new SsrAndSeoWebpackPlugin({
       ssrPagesFilename: 'ssr-pages.json',
       sitemap: {
@@ -98,23 +106,27 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       },
     }));
 
+
     webpackConfig.plugins.push(new MarkdownAppSearchWebpackPlugin({}));
 
     webpackConfig.plugins.push(new MarkdownCodeExamplesWebpackPlugin({
       context: appRoot,
       docsPath: './content/**/*.ts',
     }));
+
   } catch (error) {
     console.error('Error adding content plugins:', error.message);
   }
 
   const angular = require('@angular/core/package.json');
   const cdk = require('@angular/cdk/package.json');
-  
-  // Fix for ENOTDIR error - use a direct require without Path.join
-  const nformPackagePath = require.resolve('../../libs/nform/package.json');
-  const nform = require(nformPackagePath);
 
+
+  // Fix for ENOTDIR error - use a direct require without Path.join
+  const nformPackagePath = require.resolve('../../../libs/nform/package.json');
+
+  const nform = require(nformPackagePath);
+  
   const fn = async () => {
     const format = {
       short_hash: '%h',
@@ -126,8 +138,9 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       author_name: '%aN',
       author_email: '%ae'
     };
-    const gitInfo = await simplegit().log({ n: "1", format });
 
+
+    const gitInfo = await simplegit().log({ n: "1", format });
     // Ensure NFORM_CONTENT_MAPPING_FILE is properly defined
     console.log('Setting NFORM_CONTENT_MAPPING_FILE in DefinePlugin to:', NFORM_CONTENT_MAPPING_FILE);
     console.log('Setting CONTENT_SERVER_URL in DefinePlugin to:', CONTENT_SERVER_URL);
@@ -153,7 +166,6 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   //     outputPath: Path.join(process.cwd(), 'webpack_profiling_events.json'),
   //   })
   // );
-
   return webpackConfig;
 }
 
