@@ -10,27 +10,24 @@
   "prefix": "pbl",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/nform-demo-app/build/webpack.config.ts"
+        },
         "outputPath": "dist/browser",
         "index": "apps/nform-demo-app/src/index.html",
         "main": "apps/nform-demo-app/src/main.ts",
         "polyfills": "apps/nform-demo-app/src/polyfills.ts",
         "tsConfig": "apps/nform-demo-app/tsconfig.app.json",
         "assets": [
-          "apps/nform-demo-app/src/nform-content-mapping.json",
           "apps/nform-demo-app/src/md-content",
           "apps/nform-demo-app/src/favicon.ico",
           "apps/nform-demo-app/src/google1a0455c97ead32c8.html",
           "apps/nform-demo-app/src/assets",
-          {
-            "glob": "nform-content-mapping.json",
-            "input": "dist",
-            "output": "/"
-          },
           {
             "glob": "**/*",
             "input": "dist/md-content",
@@ -39,6 +36,11 @@
           {
             "glob": "**/*",
             "input": "dist/md-content*",
+            "output": "/"
+          },
+          {
+            "glob": "pbl-*.json",
+            "input": "dist",
             "output": "/"
           }
         ],
@@ -91,7 +93,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular-builders/custom-webpack:dev-server",
       "options": {
         "port": 4201
       },
@@ -166,7 +168,6 @@
         "ssrWebpackConfig": "apps/nform-demo-app/build/webpack.config.ssr.js",
         "ssrProccessingScript": "dist/server.js",
         "assets": [
-          "apps/nform-demo-app/src/nform-content-mapping.json",
           "apps/nform-demo-app/src/md-content",
           {
             "glob": "index.html",

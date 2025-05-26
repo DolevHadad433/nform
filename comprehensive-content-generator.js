@@ -18,27 +18,27 @@ const realContentTemplates = {
     'root': {
         id: "/",
         title: "Home",
-        contents: "<div pbl-app-content-chunk=\"pbl-home-page-app-content-chunk\"></div>\n<!--  <div pbl-example-view=\"pbl-seller-demo-example\" exampleStyle=\"flow\"></div> -->\n<br>\n<br>\n<br>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-home-page-app-content-chunk\"></div>\n<br>\n<br>\n<br>\n<br>\n<br>"
     },
     'home': {
         id: "home",
         title: "Home",
-        contents: "<div pbl-app-content-chunk=\"pbl-home-page-app-content-chunk\"></div>\n<h1>Welcome to NForm</h1>\n<p>A modern Angular Forms library with advanced features.</p>\n<br>\n<div pbl-example-view=\"pbl-home-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-home-page-app-content-chunk\"></div>\n<h1>Welcome to NForm</h1>\n<p>A modern Angular Forms library with advanced features.</p>"
     },
     'quick-start': {
         id: "quick-start",
         title: "Quick Start",
-        contents: "<div pbl-app-content-chunk=\"pbl-quick-start-app-content-chunk\"></div>\n<h1>Quick Start Guide</h1>\n<p>This is the official quick start guide for nForm.</p>\n<br>\n<div pbl-example-view=\"pbl-quick-start-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-quick-start-app-content-chunk\"></div>\n<h1>Quick Start Guide</h1>\n<p>This is the official quick start guide for nForm.</p>"
     },
     'getting-started': {
         id: "getting-started",
         title: "Getting Started",
-        contents: "<div pbl-app-content-chunk=\"pbl-getting-started-app-content-chunk\"></div>\n<h1>Getting Started with NForm</h1>\n<p>Learn how to set up your environment and create your first form.</p>\n<br>\n<div pbl-example-view=\"pbl-getting-started-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-getting-started-app-content-chunk\"></div>\n<h1>Getting Started with NForm</h1>\n<p>Learn how to set up your environment and create your first form.</p>"
     },
     'guide': {
         id: "guide",
         title: "Guide",
-        contents: "<div pbl-app-content-chunk=\"pbl-guide-app-content-chunk\"></div>\n<h1>NForm Guide</h1>\n<p>Comprehensive guide to using NForm in your applications.</p>\n<br>\n<div pbl-example-view=\"pbl-guide-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-guide-app-content-chunk\"></div>\n<h1>NForm Guide</h1>\n<p>Comprehensive guide to using NForm in your applications.</p>"
     },
     'guide/introduction': {
         id: "guide/introduction",
@@ -48,7 +48,7 @@ const realContentTemplates = {
     'guide/basics': {
         id: "guide/basics",
         title: "Basics",
-        contents: "<h1>NForm Basics</h1>\n<p>Basic usage and concepts for NForm.</p>\n<div pbl-example-view=\"pbl-guide-basics-example\"></div>"
+        contents: "<h1>NForm Basics</h1>\n<p>Basic usage and concepts for NForm.</p>\n<div pbl-example-view=\"pbl-nform-basics-example\"></div>"
     },
     'guide/basics/nform-basics': {
         id: "guide/basics/nform-basics",
@@ -58,12 +58,12 @@ const realContentTemplates = {
     'guide/basics/disable': {
         id: "guide/basics/disable",
         title: "Disable",
-        contents: "<h1>Disabling Controls</h1>\n<p>Learn how to disable controls in NForm.</p>\n<div pbl-example-view=\"pbl-disable-controls-example\"></div>"
+        contents: "<h1>Disabling Controls</h1>\n<p>Learn how to disable controls in NForm.</p>\n<div pbl-example-view=\"pbl-disable-example\"></div>"
     },
     'guide/basics/form-layout': {
         id: "guide/basics/form-layout",
         title: "Form Layout",
-        contents: "<h1>Form Layout</h1>\n<p>Learn how to customize the layout of your forms with NForm.</p>\n<div pbl-example-view=\"pbl-form-layout-example\"></div>"
+        contents: "<h1>Form Layout</h1>\n<p>Learn how to customize the layout of your forms with NForm.</p>\n<div pbl-example-view=\"pbl-vertical-form-layout-example\"></div>"
     },
     'guide/basics/form-layout-pinning': {
         id: "guide/basics/form-layout-pinning",
@@ -108,7 +108,7 @@ const realContentTemplates = {
     'guide/events': {
         id: "guide/events",
         title: "Events",
-        contents: "<h1>Events in NForm</h1>\n<p>Learn about the event system in NForm.</p>\n<div pbl-example-view=\"pbl-events-example\"></div>"
+        contents: "<h1>Events in NForm</h1>\n<p>Learn about the event system in NForm.</p>\n<div pbl-example-view=\"pbl-value-changes-example\"></div>"
     },
     'guide/events/before-render': {
         id: "guide/events/before-render",
@@ -163,17 +163,17 @@ const realContentTemplates = {
     'guide/layout/the-renderer': {
         id: "guide/layout/the-renderer",
         title: "The Renderer",
-        contents: "<h1>The Renderer</h1>\n<p>Learn about the renderer system in NForm.</p>\n<div pbl-example-view=\"pbl-renderer-example\"></div>"
+        contents: "<h1>The Renderer</h1>\n<p>Learn about the renderer system in NForm.</p>\n<div pbl-example-view=\"pbl-the-renderer-example\"></div>"
     },
     'advanced-usage': {
         id: "advanced-usage",
         title: "Advanced Usage",
-        contents: "<div pbl-app-content-chunk=\"pbl-advanced-usage-app-content-chunk\"></div>\n<h1>Advanced Usage</h1>\n<p>Learn advanced techniques and patterns for using NForm.</p>\n<br>\n<div pbl-example-view=\"pbl-advanced-usage-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-advanced-usage-app-content-chunk\"></div>\n<h1>Advanced Usage</h1>\n<p>Learn advanced techniques and patterns for using NForm.</p>\n<br>\n<br>"
     },
     // Default template for any page not explicitly defined
     'default': {
         title: "Generated Content",
-        contents: "<h1>{{title}}</h1>\n<p>Content for {{id}}.</p>\n<div pbl-example-view=\"pbl-{{id-slug}}-example\"></div>"
+        contents: "<h1>{{title}}</h1>\n<p>Content for {{id}}.</p>"
     }
 };
 

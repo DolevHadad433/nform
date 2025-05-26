@@ -78,8 +78,9 @@ if [ -f "dist/md-content/pages.json" ]; then
   echo "Found $FILE_COUNT content files"
   
   if [ "$FILE_COUNT" -lt "$ENTRY_COUNT" ]; then
-    echo "⚠️ Some content files are missing. Running generation script..."
-    node generate-content-files.js
+    echo "⚠️ Some content files are missing. Generation script disabled."
+    # node generate-content-files.js  # DISABLED: Generates placeholder content instead of real content
+    echo "ℹ️ Relying on webpack plugins to generate real content from markdown files"
   else
     echo "✅ All content files exist"
   fi

@@ -13,6 +13,7 @@ class WebpackConstantsPlugin {
             {
                 outputFile: 'webpack-constants.json',
                 createFallbackFile: true,
+                createDefinePlugin: true, // Option to disable DefinePlugin creation
             },
             options
         );
@@ -28,16 +29,18 @@ class WebpackConstantsPlugin {
         // Generate the constants object
         const constants = this.getConstants();
 
-        // Create a define plugin to add global constants
-        const definePlugin = new webpack.DefinePlugin({
-            ANGULAR_VERSION: JSON.stringify(constants.ANGULAR_VERSION),
-            CDK_VERSION: JSON.stringify(constants.CDK_VERSION),
-            NFORM_VERSION: JSON.stringify(constants.NFORM_VERSION),
-            BUILD_VERSION: JSON.stringify(constants.BUILD_VERSION),
-        });
+        // Create a define plugin to add global constants only if requested
+        if (this.options.createDefinePlugin) {
+            const definePlugin = new webpack.DefinePlugin({
+                ANGULAR_VERSION: JSON.stringify(constants.ANGULAR_VERSION),
+                CDK_VERSION: JSON.stringify(constants.CDK_VERSION),
+                NFORM_VERSION: JSON.stringify(constants.NFORM_VERSION),
+                BUILD_VERSION: JSON.stringify(constants.BUILD_VERSION),
+            });
 
-        // Apply the define plugin
-        definePlugin.apply(compiler);
+            // Apply the define plugin
+            definePlugin.apply(compiler);
+        }
 
         // Write constants to a JSON file for fallback
         if (this.options.createFallbackFile) {

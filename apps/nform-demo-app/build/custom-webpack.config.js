@@ -21,7 +21,8 @@ module.exports = (config, options) => {
     }));
 
     // Add the content mapping files plugin
-    config.plugins.push(new ContentMappingFilesPlugin());
+    // ContentMappingFilesPlugin disabled to avoid conflicts with PebulaDynamicDictionaryWebpackPlugin
+    // config.plugins.push(new ContentMappingFilesPlugin());
 
     // Add the webpack constants plugin for version information
     config.plugins.push(new WebpackConstantsPlugin());

@@ -75,6 +75,7 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "15",
     "@angular-devkit/build-angular": "16.1.0",
     "@angular-devkit/core": "16.1.0",
     "@angular-devkit/schematics": "16.1.0",

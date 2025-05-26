@@ -27,7 +27,7 @@ export class ContentMapService {
   // Content server URL for direct file access - use webpack-provided value if available
   private contentServerUrl = typeof CONTENT_SERVER_URL !== 'undefined'
     ? CONTENT_SERVER_URL
-    : (this.isDevEnvironment ? 'http://localhost:4202' : '');
+    : (this.isDevEnvironment ? 'http://localhost:4201' : '');
 
   // Transform a path to use the content server for special paths
   public transformPath(path: string): string {

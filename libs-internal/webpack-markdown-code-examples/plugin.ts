@@ -163,6 +163,7 @@ export class MarkdownCodeExamplesWebpackPlugin {
   private async run(compiler: webpack.Compiler & { watchMode?: boolean }) {
     // Store watch mode; assume true if not present (webpack < 4.23.0)
     this.watchMode = compiler.watchMode ?? true;
+    
     const paths = await globby(this.options.docsPath, {
       cwd: this.options.context
     });
@@ -176,6 +177,7 @@ export class MarkdownCodeExamplesWebpackPlugin {
 
   private processFile(file: string) {
     const fullPath = Path.join(this.options.context, file);
+    
     const source = FS.readFileSync(fullPath, { encoding: 'utf-8' });
     const root = Path.dirname(fullPath);
     const primary = parseExampleTsFile(fullPath, source);

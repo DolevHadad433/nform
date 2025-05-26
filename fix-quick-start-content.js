@@ -21,7 +21,7 @@ if (!fs.existsSync(SOURCE_FILE)) {
     const sourceContent = {
         id: "quick-start",
         title: "Quick Start",
-        contents: "<div pbl-app-content-chunk=\"pbl-quick-start-app-content-chunk\"></div>\n<h1>Quick Start Guide</h1>\n<p>This is the official quick start guide for nForm.</p>\n<br>\n<div pbl-example-view=\"pbl-quick-start-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+        contents: "<div pbl-app-content-chunk=\"pbl-quick-start-app-content-chunk\"></div>\n<h1>Quick Start Guide</h1>\n<p>This is the official quick start guide for nForm.</p>\n<br>\n<br>"
     };
 
     try {

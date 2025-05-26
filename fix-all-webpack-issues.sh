@@ -97,8 +97,8 @@ echo "✓ Application built successfully"
 echo -e "${BLUE}7. Generating content files${NC}"
 if [ ! -f "dist/nform-content-mapping.json" ]; then
   echo "Content mapping file not found, generating..."
-  node generate-content-files.js
-  echo "✓ Content files generated"
+  # node generate-content-files.js  # DISABLED: Generates placeholder content instead of real content
+  echo "✓ Content files generation disabled (using webpack plugins instead)"
 else
   echo "✓ Content mapping file already exists"
 fi

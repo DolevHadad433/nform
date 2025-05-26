@@ -10,20 +10,20 @@ const port = 4202;
 // Enable CORS for all routes
 app.use(cors());
 
-// Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/md-content', express.static(path.join(__dirname, 'dist/md-content')));
+// Serve static files from the dist/browser directory (where webpack outputs files)
+app.use(express.static(path.join(__dirname, 'dist/browser')));
+app.use('/md-content', express.static(path.join(__dirname, 'dist/browser/md-content')));
 
 // Special routes for content files with unconventional paths
 app.get('/md-content*', (req, res) => {
     console.log(`Content server: Handling request for ${req.path}`);
-    const filePath = path.join(__dirname, 'dist', req.path);
+    const filePath = path.join(__dirname, 'dist/browser', req.path);
     res.sendFile(filePath, err => {
         if (err) {
             console.error(`Error serving ${req.path}: ${err.message}`);
 
             // Try an alternative path without slashes
-            const altPath = path.join(__dirname, 'dist/md-content', req.path.replace('/md-content', ''));
+            const altPath = path.join(__dirname, 'dist/browser/md-content', req.path.replace('/md-content', ''));
             console.log(`Trying alternative path: ${altPath}`);
 
             res.sendFile(altPath, altErr => {
