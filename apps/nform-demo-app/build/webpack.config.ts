@@ -105,15 +105,15 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       };
     };
 
-  // Add debug plugin to track webpack execution (equivalent to your console.log goal)
-  webpackConfig.plugins.push(new WebpackExecutionDebugPlugin('eliran'));
-  
-  // Use only AsyncDefinePlugin to avoid conflicting DefinePlugin values
-  const definePlugin = new AsyncDefinePlugin(fn);
-  webpackConfig.plugins.push(definePlugin);
+    // Add debug plugin to track webpack execution (equivalent to your console.log goal)
+    webpackConfig.plugins.push(new WebpackExecutionDebugPlugin('eliran'));
 
-  // Add the WebpackConstantsPlugin for file generation only (without DefinePlugin)
-  webpackConfig.plugins.push(new WebpackConstantsPlugin({ createDefinePlugin: false }));
+    // Use only AsyncDefinePlugin to avoid conflicting DefinePlugin values
+    const definePlugin = new AsyncDefinePlugin(fn);
+    webpackConfig.plugins.push(definePlugin);
+
+    // Add the WebpackConstantsPlugin for file generation only (without DefinePlugin)
+    webpackConfig.plugins.push(new WebpackConstantsPlugin({ createDefinePlugin: false }));
     // Add plugins for content handling
 
     webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
@@ -181,7 +181,7 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   //     outputPath: Path.join(process.cwd(), 'webpack_profiling_events.json'),
   //   })
   // );
-  
+
   // Add watchOptions to prevent infinite rebuild loops
   webpackConfig.watchOptions = {
     ...webpackConfig.watchOptions,
@@ -203,11 +203,11 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   if (!devServer || devServer === false) {
     webpackConfig.devServer = {};
   }
-  
-  const currentStatic = Array.isArray(devServer?.static) 
-    ? devServer.static 
-    : devServer?.static 
-      ? [devServer.static] 
+
+  const currentStatic = Array.isArray(devServer?.static)
+    ? devServer.static
+    : devServer?.static
+      ? [devServer.static]
       : [];
 
   webpackConfig.devServer = {
@@ -225,21 +225,27 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       disableDotRule: true,
       rewrites: [
         // Don't fallback for files that should be served statically
-        { from: /\.json$/, to: function(context: any) {
-          return context.parsedUrl.pathname;
-        }},
-        { from: /\.js$/, to: function(context: any) {
-          return context.parsedUrl.pathname;
-        }},
-        { from: /\.css$/, to: function(context: any) {
-          return context.parsedUrl.pathname;
-        }},
+        {
+          from: /\.json$/, to: function (context: any) {
+            return context.parsedUrl.pathname;
+          }
+        },
+        {
+          from: /\.js$/, to: function (context: any) {
+            return context.parsedUrl.pathname;
+          }
+        },
+        {
+          from: /\.css$/, to: function (context: any) {
+            return context.parsedUrl.pathname;
+          }
+        },
         // Fallback to index.html for all other routes
         { from: /./, to: '/index.html' }
       ]
     }
   };
-  
+
   return webpackConfig;
 }
 
@@ -279,9 +285,9 @@ class WebpackExecutionDebugPlugin {
 
   apply(compiler: Compiler) {
     const identifier = this.identifier;
-    
+
     console.log(`🔥 [${identifier}] webpack.js EQUIVALENT - Webpack compilation is starting!`);
-    
+
     compiler.hooks.environment.tap('WebpackExecutionDebugPlugin', () => {
       console.log(`🌍 [${identifier}] Webpack environment hook - webpack.js core is executing`);
     });

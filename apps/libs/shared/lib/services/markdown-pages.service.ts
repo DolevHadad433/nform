@@ -38,7 +38,6 @@ export class MarkdownPagesService {
         if (url) {
           // Use transformPath to handle special paths
           const transformedUrl = this.contentMapping.transformPath(url);
-          console.log(`[MarkdownPagesService] Loading page from: ${transformedUrl}`);
 
           return this.httpClient.get<PageFileAsset>(transformedUrl).toPromise()
             .then(page => {

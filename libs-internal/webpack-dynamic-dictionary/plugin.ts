@@ -55,15 +55,15 @@ export class PebulaDynamicDictionaryWebpackPlugin {
           const contentJson = JSON.stringify(this.lazySource.toSource().source());
           const metadata = JSON.parse(contentJson);
           console.log(`[${pluginName}] Emitting dynamic dictionary with:`, JSON.stringify(metadata, null, 2));
-          
+
           // Emit to webpack assets
           compilation.emitAsset(this.writePath, this.lazySource.toSource());
-          
+
           // Also update source files that get copied by Angular assets
           try {
             const sourceFilePath = path.resolve(compiler.context, 'apps/nform-demo-app/src/nform-content-mapping.json');
             const toolsFilePath = path.resolve(compiler.context, 'tools/dist/nform-content-mapping.json');
-            
+
             // Only update with the core mappings (not all the extra entries)
             const coreMapping = {
               markdownPages: metadata.markdownPages,
@@ -71,12 +71,12 @@ export class PebulaDynamicDictionaryWebpackPlugin {
               searchContent: metadata.searchContent
             };
             const coreContent = JSON.stringify(coreMapping, null, 2);
-            
+
             if (fs.existsSync(sourceFilePath)) {
               fs.writeFileSync(sourceFilePath, coreContent);
               console.log(`[${pluginName}] Updated source file: ${sourceFilePath}`);
             }
-            
+
             if (fs.existsSync(path.dirname(toolsFilePath))) {
               fs.writeFileSync(toolsFilePath, coreContent);
               console.log(`[${pluginName}] Updated tools file: ${toolsFilePath}`);

@@ -5,8 +5,8 @@ import type { DynamicExportedObject } from '@pebula-internal/webpack-dynamic-dic
 
 declare const NFORM_CONTENT_MAPPING_FILE: string;
 
-const CONTENT_MAPPING_FILE = typeof NFORM_CONTENT_MAPPING_FILE !== 'undefined' 
-  ? NFORM_CONTENT_MAPPING_FILE 
+const CONTENT_MAPPING_FILE = typeof NFORM_CONTENT_MAPPING_FILE !== 'undefined'
+  ? NFORM_CONTENT_MAPPING_FILE
   : 'nform-content-mapping.json';
 
 @Injectable({ providedIn: 'root' })
@@ -16,12 +16,12 @@ export class ContentMapService {
   get getMapping(): Promise<DynamicExportedObject> {
     if (!this.mapping) {
       if (!this.fetching) {
-        const mappingPath = this.isDevEnvironment ? 
-          '/nform-content-mapping.json' : 
+        const mappingPath = this.isDevEnvironment ?
+          '/nform-content-mapping.json' :
           CONTENT_MAPPING_FILE;
         this.fetching = this.httpClient.get<DynamicExportedObject>(mappingPath + `?dt=${Date.now()}`)
           .pipe(
-            tap( mapping => {
+            tap(mapping => {
               this.mapping = mapping;
             }),
             finalize(() => {
