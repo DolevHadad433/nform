@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "start": "node -r ./tools/webpack-config-loader.js -e \"require('./tools/webpack-config-loader')()\" && nx serve nform-demo-app",
-    "build-lib": "node -r ./tools/webpack-config-loader.js -e \"require('./tools/webpack-config-loader')()\" && nx build utils --configuration production && nx build metap  --configuration production && nx build nform  --configuration production && nx build nform-material  --configuration production",
+    "start": "nx serve nform-demo-app",
+    "build-lib": "nx build utils --configuration production && nx build metap  --configuration production && nx build nform  --configuration production && nx build nform-material  --configuration production",
     "test": "ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",

@@ -37,7 +37,6 @@ export class MarkdownCodeExamplesService {
         if (url) {
           // Use transformPath to handle special paths
           const transformedUrl = this.contentMapping.transformPath(url);
-          console.log(`[MarkdownCodeExamplesService] Loading example from: ${transformedUrl}`);
 
           return this.httpClient.get<ExampleFileAsset[]>(transformedUrl).toPromise()
             .then(page => {

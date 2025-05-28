@@ -4,13 +4,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { DynamicExportedObject } from '@pebula-internal/webpack-dynamic-dictionary';
 
-// Using fallback value if webpack doesn't define it
+
 declare const NFORM_CONTENT_MAPPING_FILE: string;
 
-// Using fallback value if webpack doesn't define it
 declare const CONTENT_SERVER_URL: string;
 
-// Fallback mapping file path if the constant is not defined during build
 const CONTENT_MAPPING_FILE = typeof NFORM_CONTENT_MAPPING_FILE !== 'undefined'
   ? NFORM_CONTENT_MAPPING_FILE
   : 'nform-content-mapping.json';
@@ -38,16 +36,10 @@ export class ContentMapService {
       // This covers patterns like md-content/file.json and md-content5e8f84b66fd66837.json
       if (path.startsWith('md-content')) {
         const transformedPath = `${this.contentServerUrl}/${path}`;
-        if (this.debugMode) {
-          console.log(`${this.logPrefix} Transforming path: "${path}" to "${transformedPath}"`);
-        }
         return transformedPath;
       }
     }
 
-    if (this.debugMode) {
-      console.log(`${this.logPrefix} Using path as is: "${path}"`);
-    }
     return path;
   }
 
@@ -59,16 +51,10 @@ export class ContentMapService {
           '/nform-content-mapping.json' :
           CONTENT_MAPPING_FILE;
 
-        if (this.debugMode) {
-          console.log(`${this.logPrefix} Fetching mapping from: ${mappingPath}, dev mode: ${this.isDevEnvironment}`);
-        }
 
         this.fetching = this.httpClient.get<DynamicExportedObject>(mappingPath + `?dt=${Date.now()}`)
           .pipe(
             tap((mapping: DynamicExportedObject) => {
-              if (this.debugMode) {
-                console.log(`${this.logPrefix} Mapping loaded:`, mapping);
-              }
               this.mapping = mapping;
             }),
             finalize(() => {
@@ -86,8 +72,5 @@ export class ContentMapService {
   private mapping: DynamicExportedObject;
 
   constructor(private httpClient: HttpClient) {
-    if (this.debugMode) {
-      console.log(`${this.logPrefix} Initializing, dev mode: ${this.isDevEnvironment}`);
-    }
   }
 }
