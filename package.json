@@ -1,6 +1,6 @@
 {
   "name": "@pebula/nform",
-  "version": "16.0.3",
+  "version": "16.0.4",
   "license": "MIT",
   "scripts": {
     "ng": "nx",

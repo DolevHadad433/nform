@@ -1,6 +1,6 @@
 {
   "name": "@pebula/metap",
-  "version": "15.0.9",
+  "version": "16.0.4",
   "license": "MIT",
   "peerDependencies": {
     "@pebula/utils": "^15.0.0"
