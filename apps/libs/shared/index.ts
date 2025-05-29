@@ -11,3 +11,4 @@ export { MarkdownPagesMenuService } from './lib/services/markdown-pages-menu.ser
 export { LocationService } from './lib/services/location.service';
 export { LazyModuleStoreService, LazyModuleInitEvent } from './lib/services/lazy-module-store';
 export { LAZY_MODULE_PRELOADING_MAP, LazyModulePreloader } from './lib/services/lazy-module-preloader';
+export { MarkdownCodeExamplesService } from './lib/services/markdown-code-examples.service';

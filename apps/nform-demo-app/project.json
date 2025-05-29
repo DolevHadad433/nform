@@ -54,7 +54,11 @@
         ],
         "scripts": [],
         "webWorkerTsConfig": "apps/nform-demo-app/tsconfig.worker.json",
-        "allowedCommonJsDependencies": []
+        "allowedCommonJsDependencies": [
+          "country-data",
+          "currency-symbol-map",
+          "faker"
+        ]
       },
       "configurations": {
         "production": {
@@ -74,6 +78,10 @@
             {
               "replace": "apps/nform-demo-app/src/environments/environment.ts",
               "with": "apps/nform-demo-app/src/environments/environment.prod.ts"
+            },
+            {
+              "replace": "apps/libs/shared-data/lib/datasource-adapters/worker.ts",
+              "with": "apps/libs/shared-data/lib/datasource-adapters/noop.ts"
             }
           ],
           "outputHashing": "all"
@@ -149,6 +157,10 @@
             {
               "replace": "apps/libs/shared-data/lib/search/search-adapters/worker.ts",
               "with": "apps/libs/shared-data/lib/search/search-adapters/noop.ts"
+            },
+            {
+              "replace": "apps/libs/shared-data/lib/datasource-adapters/worker.ts",
+              "with": "apps/libs/shared-data/lib/datasource-adapters/noop.ts"
             }
           ],
           "sourceMap": false,

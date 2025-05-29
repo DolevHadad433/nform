@@ -1,4 +1,5 @@
 import { Customer, Person, Seller } from './models';
+import './shared'; // Import to ensure module is available for augmentation
 
 export type DATA_TYPES = 'customers' | 'people' | 'sellers';
 

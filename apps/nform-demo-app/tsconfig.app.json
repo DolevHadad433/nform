@@ -2,14 +2,19 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["dev-mode-types"]
+    "types": [
+      "dev-mode-types"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "src/test-setup.ts",
     "src/main.server.ts",
     "src/app/app.server.module.ts",
     "src/app/ssr/**/*.ts",
+    "src/environments/environment.prod.ts",
     "**/*.spec.ts",
     "**/*.test.ts",
     "./build/**/*.ts",
