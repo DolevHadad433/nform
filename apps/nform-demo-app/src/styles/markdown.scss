@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @import 'variables';
 @import "primer-support/index.scss";
 @import "primer-markdown/lib/markdown-body.scss";
@@ -14,15 +15,17 @@
 $font-family: map-get($typography-config, font-family);
 
 .markdown-body {
-  @include mat-typography-level-to-styles((body-1: mat-typography-level(14px, 24px, 400, $font-family)), body-1);
+  @include mat.typography-level($typography-config, body-1);
 
   &.overflow-container {
     height: 100%;
     width: 100%;
+
     .markdown-content {
       width: 100%;
       height: 100%;
     }
+
     pre {
       height: 100%;
       width: 100%;
@@ -34,12 +37,14 @@ $font-family: map-get($typography-config, font-family);
   p {
     margin: 16px 0 0;
 
-    & + ul, & + ol {
+    &+ul,
+    &+ol {
       margin-top: 4px;
     }
   }
 
   $block-indent: 54px;
+
   blockquote {
     position: relative;
     padding: 16px;
@@ -76,31 +81,39 @@ $font-family: map-get($typography-config, font-family);
   }
 
   blockquote.info {
-    border-left: 10px solid mat-color($mat-blue, 600);
-    background: rgba(mat-color($mat-blue, 600), 0.1);
-    &.icon .icon-location:before {
-      content: 'ℹ️';
-    }
-  }
-  div.info, blockquote.info {
-    border-left: 10px solid mat-color($mat-blue, 600);
-    background: rgba(mat-color($mat-blue, 600), 0.1);
+    border-left: 10px solid mat.get-color-from-palette(mat.$blue-palette, 600);
+    background: rgba(mat.get-color-from-palette(mat.$blue-palette, 600), 0.1);
+
     &.icon .icon-location:before {
       content: 'ℹ️';
     }
   }
 
-  div.warn, blockquote.warn {
-    border-left: 10px solid mat-color($mat-orange, 600);
-    background: rgba(mat-color($mat-orange, 600), 0.1);
+  div.info,
+  blockquote.info {
+    border-left: 10px solid mat.get-color-from-palette(mat.$blue-palette, 600);
+    background: rgba(mat.get-color-from-palette(mat.$blue-palette, 600), 0.1);
+
+    &.icon .icon-location:before {
+      content: 'ℹ️';
+    }
+  }
+
+  div.warn,
+  blockquote.warn {
+    border-left: 10px solid mat.get-color-from-palette(mat.$orange-palette, 600);
+    background: rgba(mat.get-color-from-palette(mat.$orange-palette, 600), 0.1);
+
     &.icon .icon-location:before {
       content: '⚠️';
     }
   }
 
-  div.error, blockquote.error {
-    border-left: 10px solid mat-color($mat-red, 600);
-    background: rgba(mat-color($mat-red, 600), 0.1);
+  div.error,
+  blockquote.error {
+    border-left: 10px solid mat.get-color-from-palette(mat.$red-palette, 600);
+    background: rgba(mat.get-color-from-palette(mat.$red-palette, 600), 0.1);
+
     &.icon .icon-location:before {
       content: '❌';
     }
@@ -111,6 +124,7 @@ $font-family: map-get($typography-config, font-family);
 /* WE CAN'T @import "~primer-markdown/lib/code.scss" because it is inclusive and overrides the highlight.js theme */
 /* SO WE SET IT MANUALLY WITH AN EXCLUSIVE MODIFICATION */
 .markdown-body {
+
   /* Inline code snippets */
   code:not(.hljs),
   tt {
@@ -121,16 +135,20 @@ $font-family: map-get($typography-config, font-family);
     color: inherit;
     border-radius: $border-radius;
 
-    br { display: none; }
+    br {
+      display: none;
+    }
   }
 
-  del code { text-decoration: inherit; }
+  del code {
+    text-decoration: inherit;
+  }
 
   pre {
     word-wrap: normal;
 
     /* Code tags within code blocks (<pre>s) */
-    > code:not(.hljs) {
+    >code:not(.hljs) {
       padding: 0;
       margin: 0;
       font-size: 100%;
