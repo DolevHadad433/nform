@@ -30,7 +30,6 @@ export class MarkdownAppSearchWebpackPlugin {
   }
 
   apply(compiler: webpack.Compiler): void {
-
     const sources = new Map<string, SearchableSource>();
 
     MarkdownPagesWebpackPlugin.getCompilationHooks(compiler).markdownPageParsed.tap(pluginName, (context) => {
@@ -61,6 +60,7 @@ export class MarkdownAppSearchWebpackPlugin {
 }
 
 function createSearchableSource(parsedPage: ParsedPage): SearchableSource {
+  
   const { navEntry } = parsedPage.postRenderMetadata;
   const doc = domino.createDocument(parsedPage.contents, true)
   const headingWords = new Set<string>();

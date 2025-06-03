@@ -52,9 +52,6 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
   const remarkAutolinkHeadings = require('@rigor789/remark-autolink-headings');
   const remarkAttr = require('remark-attr')
 
-
-  const WebpackConstantsPlugin = require("../../../tools/webpack-constants-plugin");
-
   const customBlockquotesOptions = {
     mapping: {
       'i>': 'info',
@@ -96,7 +93,7 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       };
     };
 
-    webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
+
     webpackConfig.plugins.push(new PebulaNoCleanIfAnyWebpackPlugin());
 
     webpackConfig.plugins.push(new MarkdownPagesWebpackPlugin({
@@ -128,11 +125,9 @@ function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOp
       docsPath: './content/**/*.ts',
     }));
 
+    webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
+
     // Use only AsyncDefinePlugin to avoid conflicting DefinePlugin values
-
-
-    // Add the WebpackConstantsPlugin for file generation only (without DefinePlugin)
-    webpackConfig.plugins.push(new WebpackConstantsPlugin({ createDefinePlugin: false }));
 
     const definePlugin = new AsyncDefinePlugin(fn);
     webpackConfig.plugins.push(definePlugin);

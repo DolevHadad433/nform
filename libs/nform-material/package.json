@@ -1,6 +1,6 @@
 {
   "name": "@pebula/nform-material",
-  "version": "16.0.4",
+  "version": "16.0.5",
   "peerDependencies": {
     "@angular/material": "^15.2.9",
     "@pebula/nform": "^15.0.0"
