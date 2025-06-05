@@ -33,8 +33,19 @@ export class PebulaNoCleanIfAnyWebpackPlugin {
       },
     });
 
-    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      webpack.CleanPlugin.getCompilationHooks(compilation).keep.tap(pluginName, (asset) => PebulaNoCleanIfAnyWebpackPlugin.getCompilationHooks(compiler).keep.call(asset));
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
+      // Check if CleanPlugin hooks are available before trying to access them
+      try {
+        const cleanHooks = webpack.CleanPlugin.getCompilationHooks(compilation);
+        if (cleanHooks && cleanHooks.keep) {
+          cleanHooks.keep.tap(pluginName, (asset) =>
+            PebulaNoCleanIfAnyWebpackPlugin.getCompilationHooks(compiler).keep.call(asset)
+          );
+        }
+      } catch (error) {
+        // If CleanPlugin is not available or the compilation is not ready, skip this hook
+        compiler.getInfrastructureLogger(pluginName).debug('CleanPlugin hooks not available:', error.message);
+      }
     });
   }
 }
