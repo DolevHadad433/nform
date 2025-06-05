@@ -3,5 +3,32 @@
   "dest": "../../dist/@pebula/nform-material",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "assets": [
+    {
+      "glob": "README.md",
+      "input": ".",
+      "output": "."
+    },
+    {
+      "glob": "LICENSE",
+      "input": ".",
+      "output": "."
+    },
+    {
+      "glob": "*.scss",
+      "input": "libs/nform-material",
+      "output": "."
+    },
+    {
+      "glob": "**/*.scss",
+      "input": "libs/nform-material/theming",
+      "output": "theming"
+    },
+    {
+      "glob": "*/theming/**/*.scss",
+      "input": "libs/nform-material",
+      "output": "."
+    }
+  ]
 }

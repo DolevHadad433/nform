@@ -2,12 +2,13 @@
   <mat-toolbar *ngIf="!noToolbar" color="primary">
     <mat-progress-bar *ngIf="showSpinner" mode="indeterminate"></mat-progress-bar>
     <div fxFlex="nogrow">
-      <div class="form-status-indicator" [matTooltip]="'Form status: ' + (form?.statusChanges | async)">
+      <div class="form-status-indicator" [matTooltip]="'Form status: ' + formStatus">
         <pbl-led [blink]="ledBlinking" [color]="ledColor"></pbl-led>
       </div>
     </div>
     <span class="mat-h3 pbl-example-title" style="margin: 0" fxFlex="*">{{ exampleData?.title }}</span>
-    <button class="pbl-example-code-button" mat-icon-button matTooltip="View Source" (click)="showSourceCode = !showSourceCode">
+    <button class="pbl-example-code-button" mat-icon-button matTooltip="View Source"
+      (click)="showSourceCode = !showSourceCode">
       <mat-icon>code</mat-icon>
     </button>
     <button mat-icon-button matTooltip="Manage Form" (click)="this.toggleJsonView()">
@@ -71,7 +72,8 @@
             <mat-icon>refresh</mat-icon>
             <span>Refresh</span>
           </button>
-          <button mat-menu-item matTooltip="Update form's value & Validity" (click)="nFormCmp.nForm.form.updateValueAndValidity()">
+          <button mat-menu-item matTooltip="Update form's value & Validity"
+            (click)="nFormCmp.nForm.form.updateValueAndValidity()">
             <mat-icon>sync</mat-icon>
             <span>Sync Form</span>
           </button>

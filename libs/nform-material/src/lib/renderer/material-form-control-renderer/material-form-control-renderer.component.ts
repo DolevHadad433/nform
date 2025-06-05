@@ -54,7 +54,7 @@ export class MaterialFormControlRenderer implements MaterialStoreInstance, NForm
     }
   }
 
-  @Input() showLabels: BooleanInput = true;
+  @Input() showLabels = true;
   @Input() item: NFormRecordRef;
   @Input() nForm: NForm<any>;
 

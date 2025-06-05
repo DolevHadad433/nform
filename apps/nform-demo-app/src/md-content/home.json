@@ -1,0 +1,5 @@
+{
+  "id": "home",
+  "title": "Home",
+  "contents": "<div pbl-app-content-chunk=\"pbl-home-page-app-content-chunk\"></div>\n<h1>Welcome to NForm</h1>\n<p>A modern Angular Forms library with advanced features.</p>\n<br>\n<div pbl-example-view=\"pbl-home-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+}

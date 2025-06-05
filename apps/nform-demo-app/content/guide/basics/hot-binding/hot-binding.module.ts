@@ -19,7 +19,6 @@ import { HotBindingExample } from './hot-binding.component';
     { provide: FORM_CONTROL_COMPONENT, useValue: PblRowLayoutNformRenderer },
   ],
   exports: [ HotBindingExample ],
-  entryComponents: [ HotBindingExample ],
 })
 @BindNgModule(HotBindingExample)
 export class HotBindingExampleModule { }

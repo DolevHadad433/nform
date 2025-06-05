@@ -34,7 +34,7 @@ export class BeforeRenderEventHandler {
    * @param done
    */
   async(done: Promise<void> | Observable<void>): void {
-    if (isObservable<void>(done)) {
+    if (isObservable(done)) {
       this.notify(done.toPromise());
     } else if (typeof done['then'] === 'function') {
       this.notify(done);

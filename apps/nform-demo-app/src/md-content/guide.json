@@ -1,0 +1,5 @@
+{
+  "id": "guide",
+  "title": "Guide",
+  "contents": "<div pbl-app-content-chunk=\"pbl-guide-app-content-chunk\"></div>\n<h1>NForm Guide</h1>\n<p>Comprehensive guide to using NForm in your applications.</p>\n<br>\n<div pbl-example-view=\"pbl-guide-example\" exampleStyle=\"flow\"></div>\n<br>\n<br>"
+}

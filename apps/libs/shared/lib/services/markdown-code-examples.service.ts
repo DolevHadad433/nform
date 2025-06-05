@@ -11,10 +11,10 @@ export class MarkdownCodeExamplesService {
     if (!this.markdownCodeExamples) {
       if (!this.fetching) {
         this.fetching = this.contentMapping.getMapping
-          .then(({ markdownCodeExamples }) => this.httpClient.get<{ [cmpSelector: string]: string }>(markdownCodeExamples).toPromise() )
-          .then( markdownCodeExamples => this.markdownCodeExamples = markdownCodeExamples );
+          .then(({ markdownCodeExamples }) => this.httpClient.get<{ [cmpSelector: string]: string }>(markdownCodeExamples).toPromise())
+          .then(markdownCodeExamples => this.markdownCodeExamples = markdownCodeExamples);
       }
-      return this.fetching.then( () => this);
+      return this.fetching.then(() => this);
     } else {
       return Promise.resolve(this);
     }
@@ -32,11 +32,14 @@ export class MarkdownCodeExamplesService {
     }
 
     return this.ready
-      .then( () => {
+      .then(() => {
         const url = this.markdownCodeExamples[cmpSelector];
         if (url) {
-          return this.httpClient.get<ExampleFileAsset[]>(url).toPromise()
-            .then( page => {
+          // Use transformPath to handle special paths
+          const transformedUrl = this.contentMapping.transformPath(url);
+
+          return this.httpClient.get<ExampleFileAsset[]>(transformedUrl).toPromise()
+            .then(page => {
               this._cache.set(cmpSelector, page);
               return page;
             });

@@ -24,7 +24,7 @@ export class RouterLinkActiveNotify implements OnChanges, OnDestroy, AfterConten
   private activeLinks: Array<RouterLink | RouterLinkWithHref> = [];
 
   constructor(private router: Router) {
-    this.subscription = router.events.subscribe((s: RouterEvent) => {
+    this.subscription = router.events.subscribe((s) => {
       if (s instanceof NavigationEnd) {
         this.update();
       }

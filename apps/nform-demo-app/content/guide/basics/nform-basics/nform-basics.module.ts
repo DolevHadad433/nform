@@ -14,7 +14,6 @@ import { NformBasicsExample } from './nform-basics.component';
     PblNFormModule,
   ],
   exports: [ NformBasicsExample ],
-  entryComponents: [ NformBasicsExample ],
 })
 @BindNgModule(NformBasicsExample)
 export class NformBasicsExampleModule { }

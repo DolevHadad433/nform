@@ -18,7 +18,6 @@ import { ImperativeExample } from './imperative.component';
     MatButtonToggleModule, MatInputModule,
   ],
   exports: [ TemplateOverridesExample, ImperativeExample ],
-  entryComponents: [ TemplateOverridesExample, ImperativeExample ],
 })
 @BindNgModule(TemplateOverridesExample, ImperativeExample)
 export class TemplateOverridesExampleModule { }

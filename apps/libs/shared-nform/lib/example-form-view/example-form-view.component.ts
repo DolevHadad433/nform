@@ -1,10 +1,10 @@
 import { debounceTime } from 'rxjs/operators';
-import { Component, ContentChild, Input, SimpleChanges } from '@angular/core';
+import { Component, ContentChild, Input, SimpleChanges, ChangeDetectorRef, AfterViewInit, Inject } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations'
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { UnRx } from '@pebula/utils';
-import { ExampleViewComponent } from '@pebula/apps/shared';
+import { ExampleViewComponent, LazyModuleStoreService, MarkdownCodeExamplesService, EXAMPLE_COMPONENTS_TOKEN } from '@pebula/apps/shared';
 import { AbstractControl } from '@angular/forms';
 import { NFormComponent } from '@pebula/nform';
 
@@ -41,7 +41,7 @@ hljs.registerLanguage('json', require(`highlight.js/lib/languages/json.js`));
   ]
 })
 @UnRx()
-export class PblExampleFormViewComponent extends ExampleViewComponent {
+export class PblExampleFormViewComponent extends ExampleViewComponent implements AfterViewInit {
 
   form: AbstractControl;
   nFormCmp: NFormComponent;
@@ -49,6 +49,7 @@ export class PblExampleFormViewComponent extends ExampleViewComponent {
   formJson: string;
   modelJson: string;
   showSpinner: boolean;
+  formStatus: string = 'UNKNOWN';
 
   @Input() noToolbar: boolean;
   @Input() rightDrawerOpened: boolean;
@@ -57,6 +58,18 @@ export class PblExampleFormViewComponent extends ExampleViewComponent {
 
   ledBlinking: boolean;
   ledColor: 'red' | 'blue' | 'yellow' | 'green';
+
+  constructor(private cdr: ChangeDetectorRef, 
+              lazyModuleStore: LazyModuleStoreService,
+              @Inject(MarkdownCodeExamplesService) protected exampleService: MarkdownCodeExamplesService,
+              @Inject(EXAMPLE_COMPONENTS_TOKEN) protected exampleComponents: {[key: string]: any}) {
+    super(lazyModuleStore, exampleService, exampleComponents);
+  }
+
+  ngAfterViewInit(): void {
+    // Trigger change detection after view initialization
+    this.cdr.detectChanges();
+  }
 
   render(): void {
     super.render({ provide: PblExampleFormViewComponent, useValue: this });
@@ -83,30 +96,43 @@ export class PblExampleFormViewComponent extends ExampleViewComponent {
   setNform(nform: NFormComponent): void {
     this.nFormCmp = nform;
     this.form = nform.form;
+    this.formStatus = this.form.status;
+    this.updateLedStatus(this.form.status);
     this.nFormCmp.valueChanges.pipe(debounceTime(150)).subscribe( v => this.refreshJsonView() );
 
+    // Subscribe to form status changes and update asynchronously
     this.form.statusChanges.subscribe( status => {
-      switch (status) {
-        case 'VALID':
-          this.ledColor = 'green';
-          this.ledBlinking = false;
-          break;
-        case 'INVALID':
-          this.ledColor = 'red';
-          this.ledBlinking = true;
-          break;
-        case 'PENDING':
-          this.ledColor = 'blue';
-          this.ledBlinking = true;
-          break;
-        case 'DISABLED':
-          this.ledColor = 'yellow';
-          this.ledBlinking = false;
-          break;
-        default:
-          this.ledColor = <any> '';
-      }
+      // Use Promise.resolve() to schedule the update in the next microtask
+      // This ensures the change happens after the current change detection cycle
+      Promise.resolve().then(() => {
+        this.formStatus = status;
+        this.updateLedStatus(status);
+        this.cdr.markForCheck();
+      });
     });
+  }
+
+  private updateLedStatus(status: string): void {
+    switch (status) {
+      case 'VALID':
+        this.ledColor = 'green';
+        this.ledBlinking = false;
+        break;
+      case 'INVALID':
+        this.ledColor = 'red';
+        this.ledBlinking = true;
+        break;
+      case 'PENDING':
+        this.ledColor = 'blue';
+        this.ledBlinking = true;
+        break;
+      case 'DISABLED':
+        this.ledColor = 'yellow';
+        this.ledBlinking = false;
+        break;
+      default:
+        this.ledColor = <any> '';
+    }
   }
 
   refreshJsonView(): void {

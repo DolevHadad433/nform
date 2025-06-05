@@ -14,7 +14,7 @@ import { GuideIntroExample } from './guide-intro.component';
     MatButtonModule,
   ],
   exports: [ GuideIntroExample ],
-  entryComponents: [ GuideIntroExample ],
+
 })
 @BindNgModule(GuideIntroExample)
 export class GuideIntroExampleModule { }

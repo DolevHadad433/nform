@@ -110,7 +110,7 @@ function createFormArrayProxy<T = any>(context: FormProxyContext, formProp: Form
         property = String(property);
 
       if (typeof property === 'number' || (property as any).match(/^\d/)) {
-        if (property >= target.length) {
+        if (Number(property) >= target.length) {
           createProxyProp(target, property as any, formProp, true);
         }
         return target[property];
@@ -178,7 +178,7 @@ function createFormArrayProxy<T = any>(context: FormProxyContext, formProp: Form
         property = String(property);
 
       if (typeof property === 'number' || property.match(/^\d/)) {
-        if (property >= target.length) {
+        if (Number(property) >= target.length) {
           const ctrl = createControlFromContext(context, value);
           (context.form as FormArray).setControl(Number(property), ctrl);
           createProxyProp(target, property as any, formProp, true);

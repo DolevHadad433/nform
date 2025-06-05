@@ -1,5 +1,5 @@
-// Because `@pebula/nform` depends on the `@angular/cdk` and because all SCSS theme tools are in `@angular/material` we
-// must hard-copy some of them so that `@pebula/ngrid` does not require `@angular/material`
+/* Because `@pebula/nform` depends on the `@angular/cdk` and because all SCSS theme tools are in `@angular/material` we */
+/* must hard-copy some of them so that `@pebula/ngrid` does not require `@angular/material` */
 @import './_material-theme-tools/typography';
 @import './_material-theme-tools/theming';
 @import './utils';
@@ -50,9 +50,9 @@
 
   .pbl-ngrid-cell {
     &.pbl-ngrid-cell-focused {
-      // outline: 1px solid $cell-focus-color;
+      /* outline: 1px solid $cell-focus-color; */
       box-shadow: inset 0px 0px 0px 1px $cell-focus-color;
-      // box-shadow: inset 0px 0px 0px 1px $cell-focus-color;
+      /* box-shadow: inset 0px 0px 0px 1px $cell-focus-color; */
     }
     &.pbl-ngrid-cell-selected:not(.pbl-ngrid-cell-focused) {
       background-color: transparentize($cell-focus-color, 0.75);
@@ -145,7 +145,7 @@
     }
   }
 
-  // row-reorder (drag & drop)
+  /* row-reorder (drag & drop) */
   .pbl-ngrid-row-prefix {
     display: none;
     position: absolute;

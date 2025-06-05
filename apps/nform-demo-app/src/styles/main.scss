@@ -7,31 +7,53 @@ $typography-config: shell-typography-config();
 @include mat.all-component-typographies($typography-config);
 @include mat.all-legacy-component-typographies($typography-config);
 
-
 @include pbl-ngrid-typography($typography-config);
 
-// Include the default theme styles.
-@include angular-material-theme($pbl-shell-theme);
+/* Include the default theme styles. */
+@include mat.all-component-themes($mat-shell-theme);
 @include pbl-shell-app-theme($pbl-shell-theme, $typography-config);
 
-// @include pbl-ngrid-theme($pbl-shell-theme);
+/* @include pbl-ngrid-theme($pbl-shell-theme); */
 @include pbl-ngrid-material-theme($pbl-shell-theme);
 
-$narrow-spacing: ( spacing: $pbl-spacing-theme-narrow );
+$narrow-spacing: (
+  spacing: $pbl-spacing-theme-narrow
+);
+
 pbl-ngrid.slim {
   @include pbl-ngrid-spacing(map-merge($pbl-shell-theme, $narrow-spacing));
 }
 
-@import './markdown'; // load markdown styles
-@import './prismjs'; // load prismJs styles
+@import './markdown';
+/* load markdown styles */
+@import './prismjs';
+/* load prismJs styles */
 @import './helpers';
 @import './toc';
+
+/* Fix for small select arrow after Angular Material 16 MDC migration */
+.mat-mdc-select-arrow {
+  width: 24px !important;
+  height: 24px !important;
+
+  svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+/* Alternative fix for select arrow wrapper if needed */
+.mat-mdc-select-arrow-wrapper {
+  width: 24px !important;
+  height: 24px !important;
+}
 
 html {
   font-size: 62.5%;
 }
 
-html, body {
+html,
+body {
   -webkit-font-smoothing: antialiased;
 }
 

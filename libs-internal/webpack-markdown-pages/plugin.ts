@@ -40,13 +40,9 @@ export interface MarkdownPagesWebpackPluginOptions {
 export class MarkdownPagesWebpackPlugin {
 
   static getCompilationHooks(compiler: webpack.Compiler): MarkdownPagesWebpackPluginCompilerHooks {
-		if (!compiler || typeof compiler.hooks !== 'object') {
-			throw new TypeError(
-				"The 'compiler' argument must be an instance of Compiler"
-			);
-		}
-		let hooks = compilerHooksMap.get(compiler);
-		if (hooks === undefined) {
+    
+    let hooks = compilerHooksMap.get(compiler);
+    if (hooks === undefined) {
       hooks = {
         markdownPageNavigationMetadataReady: new SyncHook(['markdownPageNavigationMetadataReady']),
         markdownPageParsed: new SyncHook(['markdownPageParsed']),
@@ -71,7 +67,7 @@ export class MarkdownPagesWebpackPlugin {
 
   private get remarkCompiler() {
     if (!this.__remarkCompiler) {
-      this.__remarkCompiler =  unified()
+      this.__remarkCompiler = unified()
         .use(markdown, { gfm: true })
         .use(this.options.remarkPlugins)
         .use(remarkHtml)
@@ -132,8 +128,8 @@ export class MarkdownPagesWebpackPlugin {
     if (!this.firstRun && this.watchMode) {
       for (const obj of Array.from(this.cache.values())) {
         if (obj.forceRender
-            || !obj.postRenderMetadata
-            || (this.prevTimestamps.get(obj.fullPath) || this.startTime) < (compilation.fileSystemInfo.getDeprecatedFileTimestamps().get(obj.fullPath) || Infinity) ) {
+          || !obj.postRenderMetadata
+          || (this.prevTimestamps.get(obj.fullPath) || this.startTime) < (compilation.fileSystemInfo.getDeprecatedFileTimestamps().get(obj.fullPath) || Infinity)) {
           this.recentChangedFiles.add(obj);
         }
       }
@@ -159,18 +155,16 @@ export class MarkdownPagesWebpackPlugin {
         hash.update(source);
         outputAssetPath = this.outputAssetPathRoot + Path.join(Path.dirname(obj.file), `${hash.digest(hashDigest).substring(0, hashDigestLength)}.json`);
 
-        if (!this.urlCache.has(outputAssetPath))
-        {
+        if (!this.urlCache.has(outputAssetPath)) {
           var prev = obj.postRenderMetadata?.outputAssetPath;
-          if (!!prev && this.urlCache.has(prev))
-          {
+          if (!!prev && this.urlCache.has(prev)) {
             this.urlCache.delete(prev);
           }
 
           this.urlCache.set(outputAssetPath, obj);
           compilation.emitAsset(outputAssetPath, new webpack.sources.RawSource(source));
         }
-        
+
       }
 
       obj.postRenderMetadata = {
@@ -182,14 +176,14 @@ export class MarkdownPagesWebpackPlugin {
       };
 
       const copyKeys: Array<keyof PageAttributes> = ['type', 'subType', 'tooltip', 'searchGroup'];
-      copyKeys.forEach( key => {
+      copyKeys.forEach(key => {
         if (obj.attr[key]) {
           obj.postRenderMetadata.navEntry[key] = obj.attr[key];
         }
       });
 
       if (obj.attr.tags) {
-        obj.postRenderMetadata.navEntry.tags = obj.attr.tags.split(',').map( t => t.trim() );
+        obj.postRenderMetadata.navEntry.tags = obj.attr.tags.split(',').map(t => t.trim());
       }
       if (obj.attr.ordinal >= 0) {
         obj.postRenderMetadata.navEntry.ordinal = obj.attr.ordinal;
@@ -230,22 +224,22 @@ export class MarkdownPagesWebpackPlugin {
       }
 
       const now = Date.now();
-      compilation.fileSystemInfo.getDeprecatedFileTimestamps().set(obj.fullPath,now);
+      compilation.fileSystemInfo.getDeprecatedFileTimestamps().set(obj.fullPath, now);
       this.prevTimestamps.set(obj.fullPath, now);
     }
 
     let len: number;
     while (children.length !== len) {
       len = children.length;
-      for (let i=0; i < len; i++) {
+      for (let i = 0; i < len; i++) {
         const o = children[i];
         if (o) {
-          const parent = Array.from(this.cache.values()).find( p => p.attr.path === o.attr.parent);
+          const parent = Array.from(this.cache.values()).find(p => p.attr.path === o.attr.parent);
           if (parent) {
             children.splice(i, 1);
             i--;
             if (!parent.postRenderMetadata.navEntry.children) {
-              parent.postRenderMetadata.navEntry.children= [];
+              parent.postRenderMetadata.navEntry.children = [];
             }
             parent.postRenderMetadata.navEntry.children.push(o.postRenderMetadata.navEntry);
           }

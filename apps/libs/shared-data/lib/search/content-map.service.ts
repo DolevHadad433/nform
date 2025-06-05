@@ -5,22 +5,30 @@ import type { DynamicExportedObject } from '@pebula-internal/webpack-dynamic-dic
 
 declare const NFORM_CONTENT_MAPPING_FILE: string;
 
+const CONTENT_MAPPING_FILE = typeof NFORM_CONTENT_MAPPING_FILE !== 'undefined'
+  ? NFORM_CONTENT_MAPPING_FILE
+  : 'nform-content-mapping.json';
+
 @Injectable({ providedIn: 'root' })
 export class ContentMapService {
 
+  private isDevEnvironment = typeof window !== 'undefined' && window.location ? window.location.port === '4201' : false;
   get getMapping(): Promise<DynamicExportedObject> {
     if (!this.mapping) {
       if (!this.fetching) {
-        this.fetching = this.httpClient.get<DynamicExportedObject>(NFORM_CONTENT_MAPPING_FILE + `?dt=${Date.now()}`)
+        const mappingPath = this.isDevEnvironment ?
+          '/nform-content-mapping.json' :
+          CONTENT_MAPPING_FILE;
+        this.fetching = this.httpClient.get<DynamicExportedObject>(mappingPath + `?dt=${Date.now()}`)
           .pipe(
-            tap( mapping => {
+            tap(mapping => {
               this.mapping = mapping;
-            },
+            }),
             finalize(() => {
               this.fetching = undefined;
             }),
           )
-          ).toPromise();
+          .toPromise();
       }
       return this.fetching;
     } else {
@@ -32,5 +40,4 @@ export class ContentMapService {
   private mapping: DynamicExportedObject;
 
   constructor(private httpClient: HttpClient) { }
-
 }

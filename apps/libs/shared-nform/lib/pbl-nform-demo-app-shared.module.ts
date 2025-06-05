@@ -42,7 +42,7 @@ import { PblNformCreateNotify, PblNformCreateNotifier } from './pbl-nform-create
     PblRowLayoutNformRenderer,
     PblNformCreateNotify,
   ],
-  entryComponents: [ PblExampleFormViewComponent, PblRowLayoutNformRenderer ],
+
 })
 export class PblNformDemoAppSharedModule {
   static forRoot(): ModuleWithProviders<PblNformDemoAppSharedModule> {

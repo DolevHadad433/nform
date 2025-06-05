@@ -10,9 +10,6 @@ export interface PebulaNoCleanIfAnyWebpackPluginCompilerHooks {
 
 export class PebulaNoCleanIfAnyWebpackPlugin {
   static getCompilationHooks(compiler: webpack.Compiler): PebulaNoCleanIfAnyWebpackPluginCompilerHooks {
-    if (!compiler || typeof compiler.hooks !== 'object') {
-      throw new TypeError("The 'compiler' argument must be an instance of Compiler");
-    }
     let hooks = compilerHooksMap.get(compiler);
     if (hooks === undefined) {
       hooks = {
@@ -36,9 +33,18 @@ export class PebulaNoCleanIfAnyWebpackPlugin {
       },
     });
 
-    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      if (compiler.options.output?.clean) {
-        compiler.options.output.clean = false;
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
+      // Check if CleanPlugin hooks are available before trying to access them
+      try {
+        const cleanHooks = webpack.CleanPlugin.getCompilationHooks(compilation);
+        if (cleanHooks && cleanHooks.keep) {
+          cleanHooks.keep.tap(pluginName, (asset) =>
+            PebulaNoCleanIfAnyWebpackPlugin.getCompilationHooks(compiler).keep.call(asset)
+          );
+        }
+      } catch (error) {
+        // If CleanPlugin is not available or the compilation is not ready, skip this hook
+        compiler.getInfrastructureLogger(pluginName).debug('CleanPlugin hooks not available:', error.message);
       }
     });
   }

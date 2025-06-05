@@ -1,0 +1,11 @@
+{
+    "name": "@nform/custom-builder",
+    "version": "1.0.0",
+    "description": "Custom webpack builder for nForm demo app",
+    "main": "custom-webpack-builder.js",
+    "builders": "builders.json",
+    "dependencies": {
+        "@angular-devkit/architect": "^0.1602.0",
+        "@angular-devkit/build-angular": "^16.2.0"
+    }
+}

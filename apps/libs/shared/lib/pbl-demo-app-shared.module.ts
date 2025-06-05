@@ -78,7 +78,7 @@ const DECLARATION_EXPORT = [
 
     PblNFormModule
   ],
-  entryComponents: [ ExampleViewComponent, ContentChunkViewComponent ],
+
 })
 export class PblDemoAppSharedModule {
 

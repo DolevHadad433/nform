@@ -3,5 +3,17 @@
   "dest": "../../dist/@pebula/utils",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "assets": [
+    {
+      "glob": "README.md",
+      "input": "./libs/utils",
+      "output": "."
+    },
+    {
+      "glob": "LICENSE",
+      "input": ".",
+      "output": "."
+    }
+  ]
 }

@@ -27,117 +27,155 @@ function applyLoaders(webpackConfig: WebpackOptionsNormalized) {
   // we also add a loader to handle markdown files.
   webpackConfig.module.rules.push(
     {
-      test: [ /\.html$/ ],
-      use: [ "html-loader" ],
+      test: [/\.html$/],
+      use: ["html-loader"],
       resourceQuery: { not: [/\\?ngResource/] },
     },
   );
 }
 
+
 function updateWebpackConfig(webpackConfig: WebpackOptionsNormalized): WebpackOptionsNormalized {
+
   applyLoaders(webpackConfig);
 
-  // push the new plugin AFTER the angular compiler plugin
-  const AngularWebpackPlugin: typeof _AngularWebpackPlugin = require('@ngtools/webpack').AngularWebpackPlugin;
-
-  var angularPlugins = webpackConfig.plugins.filter((p) => p instanceof AngularWebpackPlugin) as _AngularWebpackPlugin[];
-  if (angularPlugins.length == 0) {
-    throw new Error(
-      'Invalid webpack configuration, could not find "AngularCompilerPlugin" or "AngularWebpackPlugin" in the plugins registered'
+  try {
+    // Find Angular plugins to disable direct template loading
+    const angularPlugins = webpackConfig.plugins.filter(
+      p => p.constructor.name === 'AngularWebpackPlugin'
     );
+  } catch (error) {
+    console.log('Error setting Angular plugin options:', error.message);
   }
-  angularPlugins.forEach((p) => p.options.directTemplateLoading = false);
 
   const remarkSlug = require('remark-slug')
   const remarkAutolinkHeadings = require('@rigor789/remark-autolink-headings');
   const remarkAttr = require('remark-attr')
-  const customBlockquotesOptions = { mapping: {
-    'i>': 'info',
-    'I>': 'info icon',
-    'w>': 'warn',
-    'W>': 'warn icon',
-    'e>': 'error',
-    'E>': 'error icon',
-  }};
 
-  const NFORM_CONTENT_MAPPING_FILE = 'nform-content-mapping.json';
-  webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
-  webpackConfig.plugins.push(new PebulaNoCleanIfAnyWebpackPlugin());
+  const customBlockquotesOptions = {
+    mapping: {
+      'i>': 'info',
+      'I>': 'info icon',
+      'w>': 'warn',
+      'W>': 'warn icon',
+      'e>': 'error',
+      'E>': 'error icon',
+    }
+  };
 
-  webpackConfig.plugins.push(new MarkdownPagesWebpackPlugin({
-    context: appRoot,
-    docsPath: '**/*.md',
-    docsRoot: './content',
-    outputAssetPathRoot: 'md-content',
-    remarkPlugins: [
-      remarkSlug,
-      remarkAutolinkHeadings,
-      [remarkAttr, { scope: 'permissive' }],
-      remarkPlugins.gatsbyRemarkPrismJs(),
-      [remarkPlugins.customBlockquotes, customBlockquotesOptions],
-    ],
-  }));
+  // Get the value from environment variable or use default
+  const NFORM_CONTENT_MAPPING_FILE = process.env.NFORM_CONTENT_MAPPING_FILE || 'nform-content-mapping.json';
+  const CONTENT_SERVER_URL = process.env.CONTENT_SERVER_URL || 'http://localhost:4201';
 
-  webpackConfig.plugins.push(new SsrAndSeoWebpackPlugin({
-    ssrPagesFilename: 'ssr-pages.json',
-    sitemap: {
-      basePath: 'https://shlomiassaf.github.io/nform',
-    },
-  }));
+  try {
+    const fn = async () => {
+      const format = {
+        short_hash: '%h',
+        hash: '%H',
+        date: '%ai',
+        message: '%s',
+        refs: '%D',
+        body: '%b',
+        author_name: '%aN',
+        author_email: '%ae'
+      };
 
-  webpackConfig.plugins.push(new MarkdownAppSearchWebpackPlugin({ }));
 
-  webpackConfig.plugins.push(new MarkdownCodeExamplesWebpackPlugin({
-    context: appRoot,
-    docsPath: './content/**/*.ts',
-  }));
+      const gitInfo = await simplegit().log({ n: "1", format });
+
+      return {
+        NFORM_CONTENT_MAPPING_FILE: JSON.stringify(NFORM_CONTENT_MAPPING_FILE),
+        ANGULAR_VERSION: JSON.stringify(angular.version),
+        CDK_VERSION: JSON.stringify(cdk.version),
+        NFORM_VERSION: JSON.stringify(nform.version),
+        BUILD_VERSION: JSON.stringify(gitInfo.latest ? gitInfo.latest.short_hash : 'dev-build'),
+        CONTENT_SERVER_URL: JSON.stringify(CONTENT_SERVER_URL)
+      };
+    };
+
+
+    webpackConfig.plugins.push(new PebulaNoCleanIfAnyWebpackPlugin());
+
+    webpackConfig.plugins.push(new MarkdownPagesWebpackPlugin({
+      context: appRoot,
+      docsPath: '**/*.md',
+      docsRoot: './content',
+      outputAssetPathRoot: 'md-content',
+      remarkPlugins: [
+        remarkSlug,
+        remarkAutolinkHeadings,
+        [remarkAttr, { scope: 'permissive' }],
+        remarkPlugins.gatsbyRemarkPrismJs(),
+        [remarkPlugins.customBlockquotes, customBlockquotesOptions],
+      ],
+    }));
+
+    webpackConfig.plugins.push(new SsrAndSeoWebpackPlugin({
+      ssrPagesFilename: 'ssr-pages.json',
+      sitemap: {
+        basePath: 'https://shlomiassaf.github.io/nform',
+      },
+    }));
+
+    webpackConfig.plugins.push(new MarkdownAppSearchWebpackPlugin({}));
+
+
+    webpackConfig.plugins.push(new MarkdownCodeExamplesWebpackPlugin({
+      context: appRoot,
+      docsPath: './content/**/*.ts',
+    }));
+
+    webpackConfig.plugins.push(new PebulaDynamicDictionaryWebpackPlugin(NFORM_CONTENT_MAPPING_FILE));
+
+    // Use only AsyncDefinePlugin to avoid conflicting DefinePlugin values
+
+    const definePlugin = new AsyncDefinePlugin(fn);
+    webpackConfig.plugins.push(definePlugin);
+  } catch (error) {
+    console.error('Error adding content plugins:', error.message);
+  }
 
   const angular = require('@angular/core/package.json');
   const cdk = require('@angular/cdk/package.json');
-  const nform = require(Path.join(process.cwd(), `libs/nform/package.json`));
 
-  const fn = async () => {
-    const format =  {
-      short_hash: '%h',
-      hash: '%H',
-      date: '%ai',
-      message: '%s',
-      refs: '%D',
-      body: '%b',
-      author_name: '%aN',
-      author_email: '%ae'
-    };
-    const gitInfo = await simplegit().log({ n: "1", format});
-    return {
-      NFORM_CONTENT_MAPPING_FILE: JSON.stringify(NFORM_CONTENT_MAPPING_FILE),
-      ANGULAR_VERSION: JSON.stringify(angular.version),
-      CDK_VERSION: JSON.stringify(cdk.version),
-      NFORM_VERSION: JSON.stringify(nform.version),
-      BUILD_VERSION: JSON.stringify(gitInfo.latest.short_hash),
-    };
 
+  // Fix for ENOTDIR error - use a direct require without Path.join
+  const nformPackagePath = require.resolve('libs/nform/package.json');
+
+  const nform = require(nformPackagePath);
+
+
+  webpackConfig.watchOptions = {
+    ...webpackConfig.watchOptions,
+    ignored: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/.git/**',
+      '**/coverage/**',
+      '**/tmp/**',
+      '**/.nx/**',
+      '**/webpack-constants.json'
+    ],
+    poll: false,
+    aggregateTimeout: 300
   };
 
-  const definePlugin = new AsyncDefinePlugin(fn);
-  webpackConfig.plugins.push(definePlugin);
 
-  // webpackConfig.plugins.push(new debug.ProfilingPlugin({
-  //     outputPath: Path.join(process.cwd(), 'webpack_profiling_events.json'),
-  //   })
-  // );
 
   return webpackConfig;
 }
 
-module.exports = updateWebpackConfig;
+
 
 export class AsyncDefinePlugin {
 
   constructor(private asyncDef: () => Promise<any>) {
+    console.log('AsyncDefinePlugin', this);
 
   }
 
   apply(compiler: Compiler) {
+    console.log('Applying AsyncDefinePlugin', this);
     let executeDefinePlugin = async () => {
       const definitions = await this.asyncDef();
       const definePlugin = new DefinePlugin(definitions);
@@ -146,7 +184,7 @@ export class AsyncDefinePlugin {
 
     compiler.hooks.run.tapPromise('AsyncDefinePlugin', executeDefinePlugin);
 
-    compiler.hooks.watchRun.tapPromise('AsyncDefinePlugin', async () => {
+    compiler.hooks.watchRun.tapPromise('AsyncDefinePlugin', async (compilation) => {
       if (executeDefinePlugin) {
         await executeDefinePlugin();
         executeDefinePlugin = undefined;
@@ -154,3 +192,5 @@ export class AsyncDefinePlugin {
     });
   }
 }
+
+module.exports = updateWebpackConfig;

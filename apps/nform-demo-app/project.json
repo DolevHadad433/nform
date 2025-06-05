@@ -10,19 +10,39 @@
   "prefix": "pbl",
   "targets": {
     "build": {
-      "executor": "ngx-build-plus:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular-builders/custom-webpack:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "plugin": "~apps/nform-demo-app/build",
+        "customWebpackConfig": {
+          "path": "apps/nform-demo-app/build/webpack.config.ts"
+        },
         "outputPath": "dist/browser",
         "index": "apps/nform-demo-app/src/index.html",
         "main": "apps/nform-demo-app/src/main.ts",
         "polyfills": "apps/nform-demo-app/src/polyfills.ts",
         "tsConfig": "apps/nform-demo-app/tsconfig.app.json",
         "assets": [
+          "apps/nform-demo-app/src/md-content",
           "apps/nform-demo-app/src/favicon.ico",
           "apps/nform-demo-app/src/google1a0455c97ead32c8.html",
-          "apps/nform-demo-app/src/assets"
+          "apps/nform-demo-app/src/assets",
+          {
+            "glob": "**/*",
+            "input": "dist/md-content",
+            "output": "/md-content"
+          },
+          {
+            "glob": "**/*",
+            "input": "dist/md-content*",
+            "output": "/"
+          },
+          {
+            "glob": "pbl-*.json",
+            "input": "dist",
+            "output": "/"
+          }
         ],
         "styles": [
           "apps/nform-demo-app/src/styles/main.scss",
@@ -34,7 +54,11 @@
         ],
         "scripts": [],
         "webWorkerTsConfig": "apps/nform-demo-app/tsconfig.worker.json",
-        "allowedCommonJsDependencies": []
+        "allowedCommonJsDependencies": [
+          "country-data",
+          "currency-symbol-map",
+          "faker"
+        ]
       },
       "configurations": {
         "production": {
@@ -54,6 +78,10 @@
             {
               "replace": "apps/nform-demo-app/src/environments/environment.ts",
               "with": "apps/nform-demo-app/src/environments/environment.prod.ts"
+            },
+            {
+              "replace": "apps/libs/shared-data/lib/datasource-adapters/worker.ts",
+              "with": "apps/libs/shared-data/lib/datasource-adapters/noop.ts"
             }
           ],
           "outputHashing": "all"
@@ -73,10 +101,9 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "ngx-build-plus:dev-server",
+      "executor": "@angular-builders/custom-webpack:dev-server",
       "options": {
-        "port": 4201,
-        "plugin": "~apps/nform-demo-app/build"
+        "port": 4201
       },
       "configurations": {
         "development": {
@@ -95,7 +122,7 @@
       "defaultConfiguration": "development"
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/nform-demo-app/**/*.ts",
@@ -104,7 +131,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/nform-demo-app/jest.config.ts",
         "passWithNoTests": true
@@ -114,9 +141,8 @@
       ]
     },
     "server": {
-      "executor": "./tools/ngx-build-plus.server:server",
+      "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "plugin": "~apps/nform-demo-app/build",
         "outputPath": "dist/server",
         "main": "apps/nform-demo-app/src/main.server.ts",
         "tsConfig": "apps/nform-demo-app/tsconfig.server.json"
@@ -131,6 +157,10 @@
             {
               "replace": "apps/libs/shared-data/lib/search/search-adapters/worker.ts",
               "with": "apps/libs/shared-data/lib/search/search-adapters/noop.ts"
+            },
+            {
+              "replace": "apps/libs/shared-data/lib/datasource-adapters/worker.ts",
+              "with": "apps/libs/shared-data/lib/datasource-adapters/noop.ts"
             }
           ],
           "sourceMap": false,
@@ -150,6 +180,7 @@
         "ssrWebpackConfig": "apps/nform-demo-app/build/webpack.config.ssr.js",
         "ssrProccessingScript": "dist/server.js",
         "assets": [
+          "apps/nform-demo-app/src/md-content",
           {
             "glob": "index.html",
             "input": "dist/browser",

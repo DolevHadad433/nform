@@ -11,11 +11,11 @@ import { NFormArray } from './nform-array';
   templateUrl: './nform-array.component.html'
 })
 export class NFormArrayComponent extends NFormArray {
-  @Input() nFormCmp: NFormComponent;
-  @Input() fArray: FormArray;
-  @Input() fGroup: FormGroup;
-  @Input() item: NFormRecordRef;
-  @Input() nForm: NForm<any>;
+  @Input() nFormCmp: NFormComponent = null!;
+  @Input() fArray: FormArray = null!;
+  @Input() fGroup: FormGroup = null!;
+  @Input() item: NFormRecordRef = null!;
+  @Input() nForm: NForm<any> = null!;
 
   @ViewChild('viewRef', { read: ViewContainerRef, static: true }) vcRef: ViewContainerRef;
 

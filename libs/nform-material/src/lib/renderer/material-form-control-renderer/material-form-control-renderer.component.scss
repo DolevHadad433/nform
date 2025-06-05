@@ -1,5 +1,22 @@
-
 /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+
+/* Fix for small select arrow after Angular Material 16 MDC migration */
+.mat-mdc-select-arrow {
+  width: 24px !important;
+  height: 24px !important;
+
+  svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+/* Alternative fix for select arrow wrapper if needed */
+.mat-mdc-select-arrow-wrapper {
+  width: 24px !important;
+  height: 24px !important;
+}
+
 mat-selection-list {
   max-height: 250px;
 }
@@ -37,6 +54,7 @@ mat-list.dynamic-array-container {
   border-left: 1px solid $list-container-border-color;
   overflow: auto;
   padding-bottom: $list-bottom-padding;
+
   /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
   .mat-form-field-wrapper {
     margin-bottom: -1.25em;
@@ -74,6 +92,7 @@ mat-list.dynamic-array-container {
           vertical-align: middle;
         }
       }
+
       .dynamic-child-form-error {
         color: $error-icon-color;
         vertical-align: middle;
@@ -110,6 +129,7 @@ mat-list.dynamic-array-container {
           color: $disabled-icon-color;
         }
       }
+
       &.selected .dynamic-list-item-select {
         mat-icon {
           color: $selected-icon-color;
@@ -127,7 +147,8 @@ mat-list.dynamic-array-container {
 
   margin-top: -$list-bottom-padding;
   border-left: 1px dotted $list-container-border-color;
-  & > * {
+
+  &>* {
     flex: 0 1 auto;
   }
 }

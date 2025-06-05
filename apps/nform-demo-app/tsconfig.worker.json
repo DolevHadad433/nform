@@ -2,9 +2,15 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../out-tsc",
-    "lib": ["es2018", "webworker"],
+    "lib": [
+      "es2018",
+      "webworker"
+    ],
     "types": [],
     "skipLibCheck": true
   },
-  "include": ["../libs/shared-data/**/*.worker.ts"]
+  "include": [
+    "../libs/shared-data/lib/search/*.worker.ts",
+    "../libs/shared-data/lib/*.worker.ts"
+  ]
 }
