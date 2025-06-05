@@ -1,7 +1,12 @@
+@use '@angular/material' as mat;
 @import './variables';
 
 $typography-config: shell-typography-config();
-@include mat-core($typography-config);
+@include mat.core();
+@include mat.typography-hierarchy($typography-config);
+@include mat.all-component-typographies($typography-config);
+@include mat.all-legacy-component-typographies($typography-config);
+
 
 @include pbl-ngrid-typography($typography-config);
 

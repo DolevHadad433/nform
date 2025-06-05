@@ -40,7 +40,7 @@ export interface MarkdownPagesWebpackPluginOptions {
 export class MarkdownPagesWebpackPlugin {
 
   static getCompilationHooks(compiler: webpack.Compiler): MarkdownPagesWebpackPluginCompilerHooks {
-		if (!(compiler instanceof webpack.Compiler)) {
+		if (!compiler || typeof compiler.hooks !== 'object') {
 			throw new TypeError(
 				"The 'compiler' argument must be an instance of Compiler"
 			);

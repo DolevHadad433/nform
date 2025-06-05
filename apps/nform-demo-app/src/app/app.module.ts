@@ -79,7 +79,6 @@ export const REQ_KEY = makeStateKey<string>('req');
         useHash: false,
         initialNavigation: 'enabledBlocking',
         preloadingStrategy: LazyModulePreloader,
-        relativeLinkResolution: 'legacy',
       }
     ),
     Angulartics2Module.forRoot({
